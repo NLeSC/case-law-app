@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
+import * as React from 'react';
+
 import './App.css';
+import logo from './logo.svg';
 
 import Network from './components/Network';
 
-class App extends Component {
+export class App extends React.Component<{}, {}> {
   render() {
     return (
       <div className="App">
@@ -17,5 +19,3 @@ class App extends Component {
     );
   }
 }
-
-export default App;
