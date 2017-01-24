@@ -1,5 +1,6 @@
 import React from 'react'
 import sigma from 'react-sigma/sigma/main'
+import { embedProps } from 'react-sigma/lib/tools'
 import 'react-sigma/sigma/layout.forceAtlas2'
 import 'react-sigma/sigma/plugins.animate'
 import 'react-sigma/sigma/layout.noverlap'
@@ -115,7 +116,11 @@ class ForceLayoutNoverlap extends React.Component {
 	}
 
   //TODO: Add composition of child components after timeout
-	render = () => null
+	render() {
+        if(this.state.running)
+          return null
+        return <div>{ embedProps(this.props.children, {sigma: this.props.sigma}) }</div>
+    }
 
 
 	_refreshGraph() {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import {Sigma, LoadJSON, RandomizeNodePositions, RelativeSize, EdgeShapes} from 'react-sigma'
+import {Sigma, LoadJSON, RandomizeNodePositions, RelativeSize, EdgeShapes, Filter} from 'react-sigma'
 import ForceLayoutNoverlap from './ForceLayoutNoverlap';
+//import Filter from './Filter'
 
 
 
@@ -31,6 +32,7 @@ class Network extends Component {
             nodes[i].articles_s = Object.keys(nodes[i].articles).join(", ");
             nodes[i].title = nodes[i].title===""? nodes[i].ecli : nodes[i].title;
             nodes[i].label = nodes[i].ecli;
+            nodes[i].indegree = s.graph.degree(nodes[i].id, 'in');
             
             // layout attributes
             nodes[i].x = Math.random();
@@ -43,7 +45,14 @@ class Network extends Component {
             edge.color = '#999';
         });
     }
+    
+    var _nodesByIndegree = function(indegree){
+        return node => "indegree" in node? (node.indegree >= indegree) : true;
+        
+    }
       
+    const filterInDegree = this.props.filterInDegree;
+    console.log(filterInDegree);
     return (
     <div className="Network">
       <Sigma renderer="canvas" style={{maxWidth:"inherit", height:"700px"}}
@@ -52,6 +61,7 @@ class Network extends Component {
         <EdgeShapes default="arrow"/>
         <LoadJSON path={String(process.env.PUBLIC_URL) + "/data.json"} onGraphLoaded={_onGraphLoaded}> 
             <RandomizeNodePositions>
+                <Filter nodesBy={_nodesByIndegree(filterInDegree)}/>
                 <ForceLayoutNoverlap iterationsPerRender={1} timeout={3000} nodeMargin={5.0} scaleNodes={1.3} easing='quadraticInOut' duration={500}/>
                 <RelativeSize initialSize={15}/>
             </RandomizeNodePositions>

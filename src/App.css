@@ -19,6 +19,17 @@
 height: 700px;
 }
 
+.App-filter-pane{
+    left: 0px;
+    top: 90px;
+    padding: 10px;
+    width: 250px;
+    height: 100%;
+  position: fixed;
+    text-align: left;
+    background-color: #CCC;
+}
+
 .App-attribute-pane{
     right: 0px;
     top: 90px;

@@ -6,7 +6,12 @@ class AttributesPane extends Component {
     constructor(props) {
         super(props);
         this.state = {};
-      }
+        this.handleChange = this.handleChange.bind(this);
+	}
+
+    handleChange(e){
+        this.props.onChange(e.data.node);
+    }
     
     render() {
         if(this.props.activeNode){
