@@ -17,14 +17,6 @@ class Network extends Component {
     }
 
   render() {
-    var make_node_title = function(node){
-        var label = node.title === "" ? node.id : node.title;
-        var articles = Object.keys(node.articles).join(", ");
-        if(articles.length>0){
-            label = label + " -- " + articles;
-        }
-        return label;
-    };
       
     var _onGraphLoaded = function() {
         var s = this.sigma;
@@ -34,10 +26,16 @@ class Network extends Component {
                 len_n = nodes.length;
 
         for (i = 0; i < len_n; i++) {
+            var id_split = nodes[i].id.split('=');
+            nodes[i].ecli = id_split[id_split.length -1];
+            nodes[i].articles_s = Object.keys(nodes[i].articles).join(", ");
+            nodes[i].title = nodes[i].title===""? nodes[i].ecli : nodes[i].title;
+            nodes[i].label = nodes[i].ecli;
+            
+            // layout attributes
             nodes[i].x = Math.random();
             nodes[i].y = Math.random();
             nodes[i].size = 2*s.graph.degree(nodes[i].id);
-            nodes[i].label = make_node_title(nodes[i]);
             nodes[i].color = '#000';
         }
         s.graph.edges().forEach(function(edge){

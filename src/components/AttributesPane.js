@@ -9,9 +9,21 @@ class AttributesPane extends Component {
       }
     
     render() {
-        return (
-            <div>{(this.props.activeNode)? this.props.activeNode.title : "None selected"}</div>
-        );
+        if(this.props.activeNode){
+            return(
+                <div>
+                    <h4><a href={this.props.activeNode.id}>{this.props.activeNode.title}</a> </h4>
+                    <div> {this.props.activeNode.date} </div>
+                    <div> {this.props.activeNode.articles_s} </div>
+                    <div> {this.props.activeNode.abstract }</div>
+                </div>
+            );
+        }
+        else {
+            return (
+                <div>{"None selected"}</div>
+            );
+        }
       }
 }
 
