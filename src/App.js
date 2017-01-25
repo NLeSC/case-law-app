@@ -12,7 +12,7 @@ class App extends Component {
         this.handleActiveNodeChange = this.handleActiveNodeChange.bind(this);
         this.handleFilterChange = this.handleFilterChange.bind(this);
         this.setFilterValues = this.setFilterValues.bind(this);
-        this.state = {activeNode: {}, filterState: {inDegreeValue: 0}, graphProps: {}};
+        this.state = {activeNode: {}, filterState: {inDegreeValue: 0, subjectValue: "all"}, graphProps: {}};
   }
     
     handleActiveNodeChange(activeNode) {

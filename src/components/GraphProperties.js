@@ -21,15 +21,16 @@ class GraphProperties extends Component {
         const s = this.props.sigma;
         var minInDegree = Number.MAX_SAFE_INTEGER,
             maxInDegree = 0,
-            categories = {};
+            subjectCategories = {};
         s.graph.nodes().forEach(function(n) {
             var inDegree = s.graph.degree(n.id, "in");
             maxInDegree = Math.max(maxInDegree, inDegree);
             minInDegree = Math.min(minInDegree, inDegree);
-            categories[n.subject] = true;
+            var subj_split = n.subject.split("#");
+            subjectCategories[n.subject] = subj_split[subj_split.length-1];
       })
         
-        return {minInDegree: 0, maxInDegree: maxInDegree, categories: categories};
+        return {minInDegree: 0, maxInDegree: maxInDegree, subjectCategories: subjectCategories};
     }
 
       render() {          

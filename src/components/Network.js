@@ -58,8 +58,20 @@ class Network extends Component {
     }
     
     const filterInDegree = this.props.filterState.inDegreeValue;
+    const filterSubject = this.props.filterState.subjectValue;
+      
     var _nodesByIndegree = function(indegree){
         return node => "indegree" in node? (node.indegree >= indegree) : true;
+    }
+    var _nodesBySubject = function(subject){
+        return function(node){
+            if(subject==="all"){
+                return true;
+            }
+            else {
+               return node.subject === subject;
+            }
+        }
     }
     return (
     <div className="Network">
@@ -72,6 +84,7 @@ class Network extends Component {
             <GraphProperties onInitialization={this.updateFilterProps}>
                 <RandomizeNodePositions>
                         <Filter nodesBy={_nodesByIndegree(filterInDegree)}/>
+                        <Filter nodesBy={_nodesBySubject(filterSubject)}/>
                         <ForceLayoutNoverlap iterationsPerRender={1} timeout={3000} nodeMargin={5.0} scaleNodes={1.3} easing='quadraticInOut' duration={500}/>
                         <RelativeSize initialSize={15}/>
                     </RandomizeNodePositions>
