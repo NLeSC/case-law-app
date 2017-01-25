@@ -41,6 +41,7 @@ class App extends Component {
             filterState.maxYearValue = filterState.maxYearValue || prevState.graphProps.maxYear;
             filterState.inDegreeValue = filterState.inDegreeValue || 0;
             filterState.subjectValue = filterState.subjectValue || "all";
+             filterState.sizeAttributeValue = filterState.sizeAttributeValue || "degree";
             return {filterState: filterState};
         } );
     }

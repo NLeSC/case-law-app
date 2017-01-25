@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Sigma, LoadJSON, RandomizeNodePositions, RelativeSize, EdgeShapes, Filter} from 'react-sigma'
 import ForceLayoutNoverlap from './ForceLayoutNoverlap';
 import GraphProperties from './GraphProperties'
-
+import SizeOnAttribute from './SizeOnAttribute'
 
 
 class Network extends Component {
@@ -42,6 +42,8 @@ class Network extends Component {
             nodes[i].articles_s = Object.keys(nodes[i].articles).join(", ");
             nodes[i].title = nodes[i].title===""? nodes[i].ecli : nodes[i].title;
             nodes[i].label = nodes[i].ecli;
+            nodes[i].degree = s.graph.degree(nodes[i].id);
+            nodes[i].outdegree = s.graph.degree(nodes[i].id, 'out');
             nodes[i].indegree = s.graph.degree(nodes[i].id, 'in');
             maxInDegree = Math.max(maxInDegree, nodes[i].indegree); 
             
@@ -63,7 +65,8 @@ class Network extends Component {
     const filterSubject = this.props.filterState.subjectValue;
     const minYearValue = this.props.filterState.minYearValue;
     const maxYearValue = this.props.filterState.maxYearValue;
-      
+    const sizeAttributeValue = this.props.filterState.sizeAttributeValue;
+    console.log(sizeAttributeValue);
     var _nodesByIndegree = function(indegree){
         return node => "indegree" in node? (node.indegree >= indegree) : true;
     }
@@ -100,13 +103,15 @@ class Network extends Component {
         <EdgeShapes default="arrow"/>
         <LoadJSON path={String(process.env.PUBLIC_URL) + "/data.json"} onGraphLoaded={_onGraphLoaded}> 
             <GraphProperties onInitialization={this.updateFilterProps}>
-                <RandomizeNodePositions>
-                {/*<Filter nodesBy={_nodesByIndegree(filterInDegree)}/>
-                        <Filter nodesBy={_nodesBySubject(filterSubject)}/>*/}
-                        <Filter nodesBy={_nodes_by(filterInDegree, filterSubject, minYearValue, maxYearValue)}/>
-                        <ForceLayoutNoverlap iterationsPerRender={1} timeout={3000} nodeMargin={5.0} scaleNodes={1.3} easing='quadraticInOut' duration={500}/>
-                        <RelativeSize initialSize={15}/>
+                <SizeOnAttribute attribute={sizeAttributeValue}>
+                    <RandomizeNodePositions>
+                    {/*<Filter nodesBy={_nodesByIndegree(filterInDegree)}/>
+                            <Filter nodesBy={_nodesBySubject(filterSubject)}/>*/}
+                            <Filter nodesBy={_nodes_by(filterInDegree, filterSubject, minYearValue, maxYearValue)}/>
+                            <ForceLayoutNoverlap iterationsPerRender={1} timeout={3000} nodeMargin={5.0} scaleNodes={1.3} easing='quadraticInOut' duration={500}/>
+                            
                     </RandomizeNodePositions>
+                </SizeOnAttribute>
             </GraphProperties>
           
         </LoadJSON>

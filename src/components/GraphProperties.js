@@ -42,7 +42,12 @@ class GraphProperties extends Component {
         return {minInDegree: 0, maxInDegree: maxInDegree, 
                 minYear: minYear,
                 maxYear: maxYear,
-                subjectCategories: subjectCategories};
+                subjectCategories: subjectCategories,
+               sizeAttributes: this.getSizeAttributes()};
+    }
+    
+    getSizeAttributes(){
+        return ['degree', 'indegree', 'outdegree', 'year'];
     }
 
       render() {          

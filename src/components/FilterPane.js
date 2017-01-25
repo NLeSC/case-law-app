@@ -10,6 +10,7 @@ class FilterPane extends Component {
         this.handleSubjectChange = this.handleSubjectChange.bind(this);
         this.handleMinYearChange = this.handleMinYearChange.bind(this);
         this.handleMaxYearChange = this.handleMaxYearChange.bind(this);
+        this.handleSizeAttributeChange = this.handleSizeAttributeChange.bind(this);
       }
     
     handleInDegreeChange(event) {
@@ -32,6 +33,11 @@ class FilterPane extends Component {
         this.props.onChange(newState);
     }
     
+    handleSizeAttributeChange(event) {
+        var newState = {sizeAttributeValue: event.target.value}
+        this.props.onChange(newState);
+    }
+    
     componentIsMounted(){
         //Set the default values
         var newState = {minYearValue: this.props.graphProps.minYear};
@@ -50,33 +56,45 @@ class FilterPane extends Component {
             const listSubjectOptions = Object.keys(subjectCategories).map(
                             (option) => <option value={option} key={option}> {subjectCategories[option]} </option> 
             );
+            const sizeAttributes = graphProps.sizeAttributes || [];
+            const listSizeAttributes = sizeAttributes.map(
+                            (option) => <option value={option} key={option}> {option} </option> 
+            );
             
             // The current values
             const inDegreeValue = this.props.filterState.inDegreeValue || minInDegree;
             const subjectValue = this.props.filterState.subjectValue;
             const minYearValue = this.props.filterState.minYearValue || minYear;
             const maxYearValue = this.props.filterState.maxYearValue || maxYear;
+            const sizeAttributeValue = this.props.filterState.sizeAttributeValue;
             return(
                 <div>
                     <h2>Filters</h2>
                     <form>
                     <div>
-                      <h3>Minimum in-degree: {inDegreeValue}</h3>
+                      <h4>Minimum in-degree: {inDegreeValue}</h4>
                         {minInDegree} <input type="range" min={minInDegree} max={maxInDegree} value={inDegreeValue} onChange={this.handleInDegreeChange}/> {maxInDegree}
                     </div>
                     <div>
-                      <h3>Minimum year: {minYearValue}</h3>
+                      <h4>Minimum year: {minYearValue}</h4>
                         {minYear} <input type="range" min={minYear} max={maxYear} value={minYearValue} onChange={this.handleMinYearChange}/> {maxYear}
                     </div>
                     <div>
-                      <h3>Maximum year: {maxYearValue}</h3>
+                      <h4>Maximum year: {maxYearValue}</h4>
                         {minYear} <input type="range" min={minYear} max={maxYear} value={maxYearValue} onChange={this.handleMaxYearChange}/> {maxYear}
                     </div>
                     <div>
-                      <h3>Rechtsgebied</h3>
+                      <h4>Rechtsgebied</h4>
                       <select value={subjectValue} onChange={this.handleSubjectChange}>
                         <option value="all">All subjects</option>
                         {listSubjectOptions}
+                      </select>
+                    </div>
+                    <h2> Appearances </h2>
+                    <div>
+                      <h4>Node Size</h4>
+                      <select value={sizeAttributeValue} onChange={this.handleSizeAttributeChange}>
+                        {listSizeAttributes}
                       </select>
                     </div>
                     </form>
