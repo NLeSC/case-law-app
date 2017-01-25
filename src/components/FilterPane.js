@@ -13,13 +13,15 @@ class FilterPane extends Component {
     }
     
     render() {
+        const minInDegree = this.props.graphProps.minInDegree;
+        const maxInDegree = this.props.graphProps.maxInDegree;
         return(
             <div>
                 <h2>Filters</h2>
 
                 <div>
                   <h3>Minimum in-degree: {this.props.inDegreeValue}</h3>
-                  0 <input type="range" min={0} max={5} value={this.props.inDegreeValue} onChange={this.handleChange}/> 5 
+                    {minInDegree} <input type="range" min={minInDegree} max={maxInDegree} value={this.props.inDegreeValue} onChange={this.handleChange}/> {maxInDegree}
                 </div>
             </div>
             );
