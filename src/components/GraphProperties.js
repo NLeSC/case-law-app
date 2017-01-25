@@ -13,7 +13,6 @@ class GraphProperties extends Component {
 
     
     componentDidMount(){
-        console.log(this);
         const graphProps = this.getGraphProperties()
         this.props.onInitialization(graphProps);
     }

@@ -12,15 +12,22 @@ class App extends Component {
         this.handleActiveNodeChange = this.handleActiveNodeChange.bind(this);
         this.handleFilterChange = this.handleFilterChange.bind(this);
         this.setFilterValues = this.setFilterValues.bind(this);
-        this.state = {activeNode: {}, filterInDegree: 0, graphProps: {}};
+        this.state = {activeNode: {}, filterState: {inDegreeValue: 0}, graphProps: {}};
   }
     
     handleActiveNodeChange(activeNode) {
         this.setState({activeNode: activeNode})
     }
     
-    handleFilterChange(filter){
-        this.setState({filterInDegree: filter})
+    handleFilterChange(newFilterState){
+        // Merge the new filter state into the old one
+        console.log(newFilterState);
+        this.setState(function(prevState, props){
+            var mergedFilterState = prevState.filterState;
+            for (var attrname in newFilterState) { mergedFilterState[attrname] = newFilterState[attrname]; }
+            return {filterState: mergedFilterState};
+        } );
+        console.log(this.state);
     }
     
     setFilterValues(graphProps){
@@ -29,7 +36,7 @@ class App extends Component {
     
   render() {
       const activeNode = this.state.activeNode;
-      const filterInDegree = this.state.filterInDegree;
+      const filterState = this.state.filterState;
       const graphProps = this.state.graphProps;
     return (
       <div className="App">
@@ -37,12 +44,12 @@ class App extends Component {
           <h2>Case Law Analytics</h2>
         </div>
         <div className="App-filter-pane">
-            <FilterPane onChange={this.handleFilterChange} 
-                        inDegreeValue={filterInDegree} 
+            <FilterPane onChange={this.handleFilterChange}
+                        filterState={filterState}
                         graphProps={graphProps} />
         </div>
         <div className="App-network">
-            <Network onChange={this.handleActiveNodeChange} filterInDegree={filterInDegree} selectedNode={activeNode}
+            <Network onChange={this.handleActiveNodeChange} filterState={filterState} selectedNode={activeNode}
                     onInitialization={this.setFilterValues}/>
         </div>
         <div className="App-attribute-pane">

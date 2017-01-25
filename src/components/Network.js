@@ -20,7 +20,6 @@ class Network extends Component {
     }
     
     updateFilterProps(graphProps){
-        console.log(this);
         //const minInDegree = 0;
         //const maxInDegree = 5;
         this.props.onInitialization(graphProps);
@@ -29,9 +28,7 @@ class Network extends Component {
   render() {
       
     var _onGraphLoaded = function() {
-        console.log(this);
         var s = this.sigma;
-        console.log(s);
         var i,
                 nodes = s.graph.nodes(),
                 len_n = nodes.length;
@@ -60,7 +57,7 @@ class Network extends Component {
         
     }
     
-    const filterInDegree = this.props.filterInDegree;
+    const filterInDegree = this.props.filterState.inDegreeValue;
     var _nodesByIndegree = function(indegree){
         return node => "indegree" in node? (node.indegree >= indegree) : true;
     }
