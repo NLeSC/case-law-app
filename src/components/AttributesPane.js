@@ -14,19 +14,19 @@ class AttributesPane extends Component {
     }
     
     render() {
-        if(this.props.activeNode){
+        if(this.props.activeNode.title){
             return(
                 <div>
                     <h4><a href={this.props.activeNode.id}>{this.props.activeNode.title}</a> </h4>
-                    <div> {this.props.activeNode.date} </div>
-                    <div> {this.props.activeNode.articles_s} </div>
-                    <div> {this.props.activeNode.abstract }</div>
+                    <div> <b>Date: </b>{this.props.activeNode.date} </div>
+                    <div> <b>Articles: </b> {this.props.activeNode.articles_s} </div>
+                    <div> <b>Abstract: </b>{this.props.activeNode.abstract }</div>
                 </div>
             );
         }
         else {
             return (
-                <div>{"None selected"}</div>
+                <div>{"Click on node"}</div>
             );
         }
       }

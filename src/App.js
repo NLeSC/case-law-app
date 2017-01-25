@@ -12,7 +12,8 @@ class App extends Component {
         this.handleActiveNodeChange = this.handleActiveNodeChange.bind(this);
         this.handleFilterChange = this.handleFilterChange.bind(this);
         this.setFilterValues = this.setFilterValues.bind(this);
-        this.state = {activeNode: {}, filterState: {inDegreeValue: 0, subjectValue: "all"}, graphProps: {}};
+        this.setDefaultStateValues = this.setDefaultStateValues.bind(this);
+        this.state = {activeNode: {}, filterState: {}, graphProps: {}};
   }
     
     handleActiveNodeChange(activeNode) {
@@ -21,20 +22,30 @@ class App extends Component {
     
     handleFilterChange(newFilterState){
         // Merge the new filter state into the old one
-        console.log(newFilterState);
         this.setState(function(prevState, props){
             var mergedFilterState = prevState.filterState;
             for (var attrname in newFilterState) { mergedFilterState[attrname] = newFilterState[attrname]; }
             return {filterState: mergedFilterState};
         } );
-        console.log(this.state);
     }
     
     setFilterValues(graphProps){
         this.setState({graphProps: graphProps});
+        this.setDefaultStateValues();
     }
     
-  render() {
+    setDefaultStateValues(){
+         this.setState(function(prevState, props){
+            var filterState = prevState.filterState;
+            filterState.minYearValue = filterState.minYearValue || prevState.graphProps.minYear;
+            filterState.maxYearValue = filterState.maxYearValue || prevState.graphProps.maxYear;
+            filterState.inDegreeValue = filterState.inDegreeValue || 0;
+            filterState.subjectValue = filterState.subjectValue || "all";
+            return {filterState: filterState};
+        } );
+    }
+    
+  render() {   
       const activeNode = this.state.activeNode;
       const filterState = this.state.filterState;
       const graphProps = this.state.graphProps;

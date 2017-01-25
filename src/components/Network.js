@@ -16,6 +16,7 @@ class Network extends Component {
 	}
 
     handleChange(e){
+        console.log(e.data.node);
         this.props.onChange(e.data.node);
     }
     
@@ -37,6 +38,7 @@ class Network extends Component {
         for (i = 0; i < len_n; i++) {
             var id_split = nodes[i].id.split('=');
             nodes[i].ecli = id_split[id_split.length -1];
+            nodes[i].year = nodes[i].ecli.split(':')[3];
             nodes[i].articles_s = Object.keys(nodes[i].articles).join(", ");
             nodes[i].title = nodes[i].title===""? nodes[i].ecli : nodes[i].title;
             nodes[i].label = nodes[i].ecli;
@@ -59,9 +61,19 @@ class Network extends Component {
     
     const filterInDegree = this.props.filterState.inDegreeValue;
     const filterSubject = this.props.filterState.subjectValue;
+    const minYearValue = this.props.filterState.minYearValue;
+    const maxYearValue = this.props.filterState.maxYearValue;
       
     var _nodesByIndegree = function(indegree){
         return node => "indegree" in node? (node.indegree >= indegree) : true;
+    }
+    var _nodesByYear = function(minYearValue, maxYearValue){
+        return function(node){
+            if("year" in node){
+                return (parseInt(node.year, 10) >= minYearValue && parseInt(node.year, 10) <= maxYearValue);
+            }
+            return true;
+        }
     }
     var _nodesBySubject = function(subject){
         return function(node){
@@ -73,6 +85,12 @@ class Network extends Component {
             }
         }
     }
+    
+    var _nodes_by = function(indegree, subject, minYearValue, maxYearValue){
+        return node => _nodesByIndegree(indegree)(node) 
+                        && _nodesByYear(minYearValue, maxYearValue)(node)
+                        && _nodesBySubject(subject)(node);
+    }
     return (
     <div className="Network">
       <Sigma renderer="canvas" style={{maxWidth:"inherit", height:"700px"}}
@@ -83,8 +101,9 @@ class Network extends Component {
         <LoadJSON path={String(process.env.PUBLIC_URL) + "/data.json"} onGraphLoaded={_onGraphLoaded}> 
             <GraphProperties onInitialization={this.updateFilterProps}>
                 <RandomizeNodePositions>
-                        <Filter nodesBy={_nodesByIndegree(filterInDegree)}/>
-                        <Filter nodesBy={_nodesBySubject(filterSubject)}/>
+                {/*<Filter nodesBy={_nodesByIndegree(filterInDegree)}/>
+                        <Filter nodesBy={_nodesBySubject(filterSubject)}/>*/}
+                        <Filter nodesBy={_nodes_by(filterInDegree, filterSubject, minYearValue, maxYearValue)}/>
                         <ForceLayoutNoverlap iterationsPerRender={1} timeout={3000} nodeMargin={5.0} scaleNodes={1.3} easing='quadraticInOut' duration={500}/>
                         <RelativeSize initialSize={15}/>
                     </RandomizeNodePositions>
