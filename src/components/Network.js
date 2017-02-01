@@ -39,7 +39,7 @@ class Network extends Component {
             var id_split = nodes[i].id.split('=');
             nodes[i].ecli = id_split[id_split.length -1];
             nodes[i].year = nodes[i].ecli.split(':')[3];
-            nodes[i].articles_s = Object.keys(nodes[i].articles).join(", ");
+            nodes[i].articles_s = nodes[i].articles.join(", ");
             nodes[i].title = nodes[i].title===""? nodes[i].ecli : nodes[i].title;
             nodes[i].label = nodes[i].ecli;
             nodes[i].degree = s.graph.degree(nodes[i].id);
