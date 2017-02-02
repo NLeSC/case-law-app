@@ -10,7 +10,7 @@
   "dependencies": {
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "react-sigma": "^1.2.15"
+    "react-sigma": "=1.2.15"
   },
   "scripts": {
     "start": "react-scripts start",
