@@ -29,9 +29,7 @@ class GraphProperties extends Component {
             maxInDegree = Math.max(maxInDegree, inDegree);
             minInDegree = Math.min(minInDegree, inDegree);
             
-            var id_split = n.id.split('=');
-            var ecli = id_split[id_split.length -1];
-            var year = ecli.split(':')[3];
+            var year = n.year;
             
             minYear = Math.min(minYear, year);
             maxYear = Math.max(maxYear, year);
@@ -47,7 +45,9 @@ class GraphProperties extends Component {
     }
     
     getSizeAttributes(){
-        return ['degree', 'indegree', 'outdegree', 'year'];
+        //TODO: check if the nodes indeed have these attributes, 
+        // or automatically extract attributes
+        return ['degree', 'in_degree', 'out_degree', 'year', 'hubs', 'authorities', 'betweenness_centrality', 'count_annotation'];
     }
 
       render() {          
