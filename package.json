@@ -2,7 +2,9 @@
   "name": "case-law-app-js",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://nlesc.github.io/case-law-app",
   "devDependencies": {
+    "gh-pages": "^0.12.0",
     "react-scripts": "0.8.5"
   },
   "dependencies": {
@@ -14,6 +16,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+	"deploy": "npm run build&&gh-pages -d build"
+
   }
 }
