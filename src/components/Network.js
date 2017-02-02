@@ -65,7 +65,7 @@ class Network extends Component {
     const sizeAttributeValue = this.props.filterState.sizeAttributeValue;
     console.log(sizeAttributeValue);
     var _nodesByIndegree = function(indegree){
-        return node => "indegree" in node? (node.indegree >= indegree) : true;
+        return node => "in_degree" in node? (node.in_degree >= indegree) : true;
     }
     var _nodesByYear = function(minYearValue, maxYearValue){
         return function(node){
