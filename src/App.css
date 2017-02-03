@@ -24,11 +24,18 @@
   color: white;
 }
 
+.App-form {
+  float: right;
+	position:relative;
+	z-index:2;
+}
+
 .App-network {
     float:left;
 	width:100%;
 height: 700px;
-    margin-right:-600px;/* width of left and right columns */
+    margin-right:-300px; /* width of left and right columns */
+    margin-left:-300px; /* width of left and right columns */
 }
 
 .App-filter-pane{

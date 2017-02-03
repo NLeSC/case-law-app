@@ -4,6 +4,7 @@ import './App.css';
 import Network from './components/Network';
 import AttributesPane from './components/AttributesPane'
 import FilterPane from './components/FilterPane'
+import LoadData from './components/LoadData'
 
 class App extends Component {
     
@@ -13,7 +14,11 @@ class App extends Component {
         this.handleFilterChange = this.handleFilterChange.bind(this);
         this.setFilterValues = this.setFilterValues.bind(this);
         this.setDefaultStateValues = this.setDefaultStateValues.bind(this);
-        this.state = {activeNode: {}, filterState: {}, graphProps: {}};
+        this.handleLoadData = this.handleLoadData.bind(this);
+        this.doneLoading = this.doneLoading.bind(this);
+        this.resetFilterValues.bind(this);
+        this.state = {data: {nodes:[], edges:[]}, loading: false,
+                      activeNode: {}, filterState: {}, graphProps: {}};
   }
     
     handleActiveNodeChange(activeNode) {
@@ -46,23 +51,47 @@ class App extends Component {
         } );
     }
     
+    resetFilterValues(){
+        this.setState({filterState: {}});
+    }
+    
+    handleLoadData(data){
+        console.log("Load new data");
+        this.resetFilterValues();
+        this.setState({data: data, loading: true});
+    }
+    
+    doneLoading(){
+        this.setState({loading: false});
+    }
+    
   render() {   
       const activeNode = this.state.activeNode;
       const filterState = this.state.filterState;
       const graphProps = this.state.graphProps;
+      const data = this.state.data;
     return (
       <div className="App">
         <div className="App-header">
           <h2>Case Law Analytics</h2>
+        
+        
         </div>
         <div className="App-filter-pane">
+            <div className="App-form">
+                <LoadData
+                  onClick={this.handleLoadData}
+                />
+            </div>
+            
             <FilterPane onChange={this.handleFilterChange}
                         filterState={filterState}
                         graphProps={graphProps} />
         </div>
         <div className="App-network">
             <Network onChange={this.handleActiveNodeChange} filterState={filterState} selectedNode={activeNode}
-                    onInitialization={this.setFilterValues}/>
+                    onInitialization={this.setFilterValues} loading={this.state.loading} doneLoading={this.doneLoading}
+                    data={data}/>
         </div>
         <div className="App-attribute-pane">
             <AttributesPane activeNode={activeNode}/>

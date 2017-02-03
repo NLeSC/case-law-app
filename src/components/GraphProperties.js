@@ -24,7 +24,7 @@ class GraphProperties extends Component {
             minYear = Number.MAX_SAFE_INTEGER,
             maxYear = 0,
             subjectCategories = {};
-        s.graph.nodes().forEach(function(n) {
+            s.graph.nodes().forEach(function(n) {
             var inDegree = s.graph.degree(n.id, "in");
             maxInDegree = Math.max(maxInDegree, inDegree);
             minInDegree = Math.min(minInDegree, inDegree);
@@ -36,7 +36,6 @@ class GraphProperties extends Component {
             var subj_split = n.subject.split("#");
             subjectCategories[n.subject] = subj_split[subj_split.length-1];
       })
-        
         return {minInDegree: 0, maxInDegree: maxInDegree, 
                 minYear: minYear,
                 maxYear: maxYear,
