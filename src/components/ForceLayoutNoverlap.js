@@ -1,51 +1,53 @@
 import React from 'react'
 import sigma from 'react-sigma/sigma/main'
-import { embedProps } from 'react-sigma/lib/tools'
+import {
+    embedProps
+} from 'react-sigma/lib/tools'
 import 'react-sigma/sigma/layout.forceAtlas2'
 import 'react-sigma/sigma/plugins.animate'
 import 'react-sigma/sigma/layout.noverlap'
 
 type State = {
-	running: boolean,
+    running: boolean,
     forceAtlasRunning: boolean,
     noverlapRunning: boolean,
-	timer?: number,
-	drawEdges?: ?boolean
+    timer ? : number,
+    drawEdges ? : ? boolean
 };
 
 type Props = {
     //forceatlas2 props
-	worker: boolean,
-	barnesHutOptimize?: boolean,
-	barnesHutTheta?: number,
-	adjustSizes?: boolean,
-	iterationsPerRender?: number,
-	linLogMode: boolean,
-	outboundAttractionDistribution?: boolean,
-	edgeWeightInfluence?: number,
-	scalingRatio?: number,
-	strongGravityMode?: boolean,
-	slowDown?: number,
-	gravity?: number,
-	timeout?: number,
-    
+    worker: boolean,
+    barnesHutOptimize ? : boolean,
+    barnesHutTheta ? : number,
+    adjustSizes ? : boolean,
+    iterationsPerRender ? : number,
+    linLogMode: boolean,
+    outboundAttractionDistribution ? : boolean,
+    edgeWeightInfluence ? : number,
+    scalingRatio ? : number,
+    strongGravityMode ? : boolean,
+    slowDown ? : number,
+    gravity ? : number,
+    timeout ? : number,
+
     // noverlap props
-    nodes?: Array<Sigma$Node>,
-	nodeMargin?: number,
-	scaleNodes?: number,
-	gridSize?: number,
-	permittedExpansion?: number,
-	speed?: number,
-	maxIterations?: number,
-	easing?: Sigma$Easing,
-	duration?: number,
-	
-    sigma?: sigma
+    nodes ? : Array < Sigma$Node > ,
+    nodeMargin ? : number,
+    scaleNodes ? : number,
+    gridSize ? : number,
+    permittedExpansion ? : number,
+    speed ? : number,
+    maxIterations ? : number,
+    easing ? : Sigma$Easing,
+    duration ? : number,
+
+    sigma ? : sigma
 };
 
 type DefaultProps = {
-	worker: boolean,
-	linLogMode: boolean
+    worker: boolean,
+    linLogMode: boolean
 };
 
 /**
@@ -82,74 +84,92 @@ It accepts all the parameters of ForceAtlas2 and Noverlap described on its githu
 
 
 class ForceLayoutNoverlap extends React.Component {
-	state: State;
-	props: Props;
-	static defaultProps: DefaultProps = {
-		worker: true,
-		linLogMode: true
-	}
+    state: State;
+    props: Props;
+    static defaultProps: DefaultProps = {
+        worker: true,
+        linLogMode: true
+    }
 
-	constructor(props: Props) {
-		super(props)
-		this.state = {running:false, forceAtlasRunning:false, noverlapRunning:false}
-	}
+        constructor(props: Props) {
+        super(props)
+        this.state = {
+            running: false,
+            forceAtlasRunning: false,
+            noverlapRunning: false
+        }
+    }
 
-	componentDidMount() {
-		this._refreshGraph()
-	}
+        componentDidMount() {
+        this._refreshGraph()
+    }
 
-	componentDidUpdate(prevProps: Props, prevState: State) {
-		let s = this.props.sigma
-		if(prevState.running && !this.state.running && s) {
-				s.stopForceAtlas2()
-				s.settings({drawEdges:prevState.drawEdges===false ? false : true})
-				s.refresh();
-		}
-	}
+        componentDidUpdate(prevProps: Props, prevState: State) {
+        let s = this.props.sigma
+        if (prevState.running && !this.state.running && s) {
+            s.stopForceAtlas2()
+            s.settings({
+                drawEdges: prevState.drawEdges === false ? false : true
+            })
+            s.refresh();
+        }
+    }
 
-	componentWillUnmount() {
-		if(this.props.sigma){
+        componentWillUnmount() {
+        if (this.props.sigma) {
             this.props.sigma.killForceAtlas2()
             this.props.sigma.stopNoverlap()
-        } 
-		if(this.state.timer) clearTimeout(this.state.timer)
-	}
+        }
+        if (this.state.timer) clearTimeout(this.state.timer)
+    }
 
-  //TODO: Add composition of child components after timeout
-	render() {
-        if(this.state.running)
-          return null
+    //TODO: Add composition of child components after timeout
+        render() {
+        if (this.state.running)
+            return null
         return <div>{ embedProps(this.props.children, {sigma: this.props.sigma}) }</div>
     }
 
 
-	_refreshGraph() {
-		let s = this.props.sigma
-		if(!sigma || !s) return
+        _refreshGraph() {
+        let s = this.props.sigma
+        if (!sigma || !s) return
 
-		let drawEdges = s.settings("drawEdges")
-		if(s.graph.edges().length > 1000)
-				s.settings({drawEdges: false})
+        let drawEdges = s.settings("drawEdges")
+        if (s.graph.edges().length > 1000)
+            s.settings({
+                drawEdges: false
+            })
 
-		s.startForceAtlas2(this._stripOptions(this.props));
-		// TODO: convert running status to state
-		let timer = setTimeout(() => {
-                    console.log('stop force layout');
-                    let listener = s.configNoverlap(this._stripOptions(this.props))
-                    listener.bind('stop', () => {
-                        console.log('stop noverlap');
-				        this.setState({running:false}) 
-                    } )
-                    s.startNoverlap()
-					this.setState({timer:undefined})
-				}, this.props.timeout || s.graph.nodes().length*8 );
-		this.setState({running:true, timer, drawEdges})
-	}
+        s.startForceAtlas2(this._stripOptions(this.props));
+        // TODO: convert running status to state
+        let timer = setTimeout(() => {
+            console.log('stop force layout');
+            let listener = s.configNoverlap(this._stripOptions(this.props))
+            listener.bind('stop', () => {
+                console.log('stop noverlap');
+                this.setState({
+                    running: false
+                })
+            })
+            s.startNoverlap()
+            this.setState({
+                timer: undefined
+            })
+        }, this.props.timeout || s.graph.nodes().length * 8);
+        this.setState({
+            running: true,
+            timer,
+            drawEdges
+        })
+    }
 
-	//strip force atlas options from component props
-	_stripOptions(props: Props): Props {
-		return Object.assign({}, props, {sigma: undefined})
-	}
+    //strip force atlas options from component props
+        _stripOptions(props: Props): Props {
+        return Object.assign({}, props, {
+            sigma: undefined
+        })
+    }
 
 }
 
