@@ -6,6 +6,7 @@ import AttributesPane from './components/AttributesPane';
 import FilterPane from './components/FilterPane';
 import LoadData from './components/LoadData';
 
+
 class App extends React.Component {
 
     constructor(props) {
@@ -17,11 +18,9 @@ class App extends React.Component {
         this.handleLoadData = this.handleLoadData.bind(this);
         this.doneLoading = this.doneLoading.bind(this);
         this.resetFilterValues.bind(this);
+        const data = require('./data/data.json')
         this.state = {
-            data: {
-                nodes: [],
-                edges: []
-            },
+            data: data,
             loading: false,
             activeNode: {},
             filterState: {},
