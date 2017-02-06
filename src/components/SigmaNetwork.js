@@ -62,7 +62,8 @@ class SigmaNetwork extends Sigma {
                                     <Filter nodesBy={nodesBy(inDegreeValue, subjectValue, minYearValue, maxYearValue)}/>
                                     <ForceLayoutNoverlap 
                                                     iterationsPerRender={1} timeout={3000} nodeMargin={5.0} 
-                                                    scaleNodes={1.3} easing='quadraticInOut' duration={500}/>
+                                                    scaleNodes={1.3} easing='quadraticInOut' maxIterations={200} 
+                                                    gridSize={50} duration={500} speed={5}/>
 
                                 </RandomizeNodePositions>
                             </ColorOnAttribute>
