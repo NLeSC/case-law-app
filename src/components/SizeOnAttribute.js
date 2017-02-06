@@ -1,13 +1,13 @@
-import React from 'react'
-import sigma from 'react-sigma/sigma/main'
+import React from 'react';
+import sigma from 'react-sigma/sigma/main';
 import {
     embedProps
-} from 'react-sigma/lib/tools'
+} from 'react-sigma/lib/tools';
 
-type Props = {
-    attribute: String,
-    sigma ? : sigma
-};
+//type Props = {
+//    attribute: String,
+//    sigma ? : sigma
+//};
 
 /**
  **/
@@ -25,13 +25,13 @@ class SizeOnAttribute extends React.Component {
     }
 
     _updateSize(props) {
-        var s = props.sigma;
-        var minSize = Number.MAX_SAFE_INTEGER;
-        s.graph.nodes().forEach(function (n) {
-            minSize = Math.min(minSize, n[props.attribute]);
+        const s = props.sigma;
+        let minSize = Number.MAX_SAFE_INTEGER;
+        s.graph.nodes().forEach(node => {
+            minSize = Math.min(minSize, node[props.attribute]);
         });
-        s.graph.nodes().forEach(function (n) {
-            n.size = n[props.attribute] - minSize;
+        s.graph.nodes().forEach(node => {
+            node.size = node[props.attribute] - minSize;
         });
     }
 

@@ -1,14 +1,12 @@
-import React, {
-    Component
-} from 'react';
+import React from 'react';
 import './App.css';
 
 import Network from './components/Network';
-import AttributesPane from './components/AttributesPane'
-import FilterPane from './components/FilterPane'
-import LoadData from './components/LoadData'
+import AttributesPane from './components/AttributesPane';
+import FilterPane from './components/FilterPane';
+import LoadData from './components/LoadData';
 
-class App extends Component {
+class App extends React.Component {
 
     constructor(props) {
         super(props);
@@ -33,16 +31,18 @@ class App extends Component {
 
     handleActiveNodeChange(activeNode) {
         this.setState({
-            activeNode: activeNode
-        })
+            activeNode
+        });
     }
 
     handleFilterChange(newFilterState) {
         // Merge the new filter state into the old one
-        this.setState(function (prevState, props) {
-            var mergedFilterState = prevState.filterState;
-            for (var attrname in newFilterState) {
-                mergedFilterState[attrname] = newFilterState[attrname];
+        this.setState((prevState, props) => {
+            const mergedFilterState = prevState.filterState;
+            for (let attrname in newFilterState) {
+                if ({}.hasOwnProperty.call(newFilterState, attrname)) {
+                    mergedFilterState[attrname] = newFilterState[attrname];
+                }
             }
             return {
                 filterState: mergedFilterState
@@ -58,8 +58,8 @@ class App extends Component {
     }
 
     setDefaultStateValues() {
-        this.setState(function (prevState, props) {
-            var filterState = prevState.filterState;
+        this.setState((prevState, props) => {
+            const filterState = prevState.filterState;
             filterState.minYearValue = filterState.minYearValue || prevState.graphProps.minYear;
             filterState.maxYearValue = filterState.maxYearValue || prevState.graphProps.maxYear;
             filterState.inDegreeValue = filterState.inDegreeValue || 0;
@@ -93,10 +93,12 @@ class App extends Component {
     }
 
     render() {
-        const activeNode = this.state.activeNode;
-        const filterState = this.state.filterState;
-        const graphProps = this.state.graphProps;
-        const data = this.state.data;
+        const {
+            activeNode,
+            filterState,
+            graphProps,
+            data
+        } = this.state;
         return (
             <div className="App">
                 <div className="App-header">

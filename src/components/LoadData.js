@@ -1,10 +1,8 @@
-import React, {
-    Component
-} from 'react';
+import React from 'react';
 import FileInput from 'react-simple-file-input';
 
 
-class LoadData extends Component {
+class LoadData extends React.Component {
 
     constructor(props) {
         super(props);
@@ -13,8 +11,8 @@ class LoadData extends Component {
     }
 
     onClick(e, file) {
-        var filetxt = e.target.result; //fileReader.readAsDataURL(file);
-        var data = JSON.parse(filetxt);
+        const filetxt = e.target.result; //fileReader.readAsDataURL(file);
+        const data = JSON.parse(filetxt);
         this.props.onClick(data);
     }
 
@@ -27,7 +25,7 @@ class LoadData extends Component {
                             className="inputClass"
                             onLoad={this.onClick}/>
             </form>
-        )
+        );
     }
 }
 

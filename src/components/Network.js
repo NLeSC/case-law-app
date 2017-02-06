@@ -1,14 +1,12 @@
-import React, {
-    Component
-} from 'react';
-import SigmaNetwork from './SigmaNetwork'
+import React from 'react';
+import SigmaNetwork from './SigmaNetwork';
 
 
-class Network extends Component {
+class Network extends React.Component {
 
 
     constructor(props: Props) {
-        super(props)
+        super(props);
         this.handleChange = this.handleChange.bind(this);
         this.updateFilterProps = this.updateFilterProps.bind(this);
     }
@@ -28,24 +26,20 @@ class Network extends Component {
     }
 
 
-    _onGraphLoaded(data) {
-        var i,
-            nodes = data.nodes,
-            len_n = nodes.length;
-
-        for (i = 0; i < len_n; i++) {
-            nodes[i].articles_s = nodes[i].articles.join(", ");
-            nodes[i].title = nodes[i].title === "" ? nodes[i].ecli : nodes[i].title;
-            nodes[i].label = nodes[i].ecli;
+    onGraphLoaded(data) {
+        data.nodes.forEach(node => {
+            node.articles_s = node.articles.join(", ");
+            node.title = node.title === "" ? node.ecli : node.title;
+            node.label = node.ecli;
 
             // layout attributes
-            nodes[i].x = Math.random();
-            nodes[i].y = Math.random();
-            nodes[i].size = 2 * (nodes[i].degree);
-            nodes[i].color = '#000';
+            node.x = Math.random();
+            node.y = Math.random();
+            node.size = 2 * (node.degree);
+            node.color = '#000';
 
-        }
-        data.edges.forEach(function (edge) {
+        });
+        data.edges.forEach(edge => {
             edge.type = "arrow";
             edge.color = '#999';
         });
@@ -55,7 +49,7 @@ class Network extends Component {
 
     render() {
 
-        var data = this._onGraphLoaded(this.props.data);
+        const data = this.onGraphLoaded(this.props.data);
         if (this.props.loading) {
             return null;
         } else {

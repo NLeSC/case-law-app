@@ -1,4 +1,5 @@
-import React, {
+import React from 'react';
+import {
     Component
 } from 'react';
 import './FilterPane.css';
@@ -16,43 +17,43 @@ class FilterPane extends Component {
     }
 
     handleInDegreeChange(event) {
-        var newState = {
+        const newState = {
             inDegreeValue: parseInt(event.target.value, 10)
-        }
+        };
         this.props.onChange(newState);
     }
 
     handleMinYearChange(event) {
-        var newState = {
+        const newState = {
             minYearValue: parseInt(event.target.value, 10)
-        }
+        };
         this.props.onChange(newState);
     }
 
     handleMaxYearChange(event) {
-        var newState = {
+        const newState = {
             maxYearValue: parseInt(event.target.value, 10)
-        }
+        };
         this.props.onChange(newState);
     }
 
     handleSubjectChange(event) {
-        var newState = {
+        const newState = {
             subjectValue: event.target.value
-        }
+        };
         this.props.onChange(newState);
     }
 
     handleSizeAttributeChange(event) {
-        var newState = {
+        const newState = {
             sizeAttributeValue: event.target.value
-        }
+        };
         this.props.onChange(newState);
     }
 
     componentIsMounted() {
         //Set the default values
-        var newState = {
+        const newState = {
             minYearValue: this.props.graphProps.minYear
         };
         this.props.onChange(newState);

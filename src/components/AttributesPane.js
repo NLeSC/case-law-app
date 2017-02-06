@@ -1,9 +1,7 @@
-import React, {
-    Component
-} from 'react';
+import React from 'react';
 
 
-class AttributesPane extends Component {
+class AttributesPane extends React.Component {
 
     constructor(props) {
         super(props);
@@ -16,13 +14,20 @@ class AttributesPane extends Component {
     }
 
     render() {
-        if (this.props.activeNode.title) {
+        const {
+            title,
+            id,
+            date,
+            articles_s,
+            abstract
+        } = this.props.activeNode;
+        if (this.props.activeNode.id) {
             return (
                 <div>
-                    <h4><a href={this.props.activeNode.id}>{this.props.activeNode.title}</a> </h4>
-                    <div> <b>Date: </b>{this.props.activeNode.date} </div>
-                    <div> <b>Articles: </b> {this.props.activeNode.articles_s} </div>
-                    <div> <b>Abstract: </b>{this.props.activeNode.abstract }</div>
+                    <h4><a href={id}>{title}</a> </h4>
+                    <div> <b>Date: </b>{date} </div>
+                    <div> <b>Articles: </b> {articles_s} </div>
+                    <div> <b>Abstract: </b>{abstract}</div>
                 </div>
             );
         } else {
