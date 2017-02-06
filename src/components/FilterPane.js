@@ -15,6 +15,7 @@ class FilterPane extends Component {
         this.handleMaxYearChange = this.handleMaxYearChange.bind(this);
         this.handleSizeAttributeChange = this.handleSizeAttributeChange.bind(this);
         this.handleColorAttributeChange = this.handleColorAttributeChange.bind(this);
+        this.handleAdjustLayoutChange = this.handleAdjustLayoutChange.bind(this);
     }
 
     handleInDegreeChange(event) {
@@ -34,6 +35,13 @@ class FilterPane extends Component {
     handleMaxYearChange(event) {
         const newState = {
             maxYearValue: parseInt(event.target.value, 10)
+        };
+        this.props.onChange(newState);
+    }
+
+    handleAdjustLayoutChange(event) {
+        const newState = {
+            adjustLayout: event.target.checked
         };
         this.props.onChange(newState);
     }
@@ -94,6 +102,7 @@ class FilterPane extends Component {
             const maxYearValue = this.props.filterState.maxYearValue || maxYear;
             const sizeAttributeValue = this.props.filterState.sizeAttributeValue;
             const colorAttributeValue = this.props.filterState.colorAttributeValue;
+            const adjustLayout = this.props.filterState.adjustLayout;
             return (
                 <div>
                     <h2>Filters</h2>
@@ -110,6 +119,11 @@ class FilterPane extends Component {
                           <h4>Maximum year: {maxYearValue}</h4>
                             {minYear} <input type="range" min={minYear} max={maxYear} value={maxYearValue} onChange={this.handleMaxYearChange}/> {maxYear}
                         </div> 
+                        <div>
+                            <label> Adjust layout for year slider: 
+                                <input name="adjustLayout" type="checkbox" checked={adjustLayout} onChange={this.handleAdjustLayoutChange}/>
+                            </label>
+                        </div>
                         <div>
                           <h4>Rechtsgebied</h4>
                           <select value={subjectValue} onChange={this.handleSubjectChange}>

@@ -53,6 +53,9 @@ type DefaultProps = {
 /**
 ForceLayoutNoverlap component, starts ForceAtlas2 sigma plugin once component is mounted.
 When it's finished it starts the Noverlap layout.
+
+A large part of this code is copied from https://github.com/dunnock/react-sigma/blob/master/src/ForceAtlas2.js
+
 It supposes that sigma graph is already in place, therefore component should not be
 mounted while graph is unavailable. It can be used within Sigma component if graph is
 preloaded, or within loader component, like NeoCypher.
@@ -98,10 +101,12 @@ class ForceLayoutNoverlap extends React.Component {
             forceAtlasRunning: false,
             noverlapRunning: false
         }
+        this._isMounted = false;
     }
 
         componentDidMount() {
-        this._refreshGraph()
+        this._isMounted = true;
+        this._refreshGraph();
     }
 
         componentDidUpdate(prevProps: Props, prevState: State) {
@@ -120,7 +125,8 @@ class ForceLayoutNoverlap extends React.Component {
             this.props.sigma.killForceAtlas2()
             this.props.sigma.stopNoverlap()
         }
-        if (this.state.timer) clearTimeout(this.state.timer)
+        if (this.state.timer) clearTimeout(this.state.timer);
+        this._isMounted = false;
     }
 
     //TODO: Add composition of child components after timeout
@@ -148,9 +154,12 @@ class ForceLayoutNoverlap extends React.Component {
             let listener = s.configNoverlap(this._stripOptions(this.props))
             listener.bind('stop', () => {
                 console.log('stop noverlap');
-                this.setState({
-                    running: false
-                })
+                if (this._isMounted) {
+                    this.setState({
+                        running: false
+                    })
+                }
+
             })
             s.startNoverlap()
             this.setState({

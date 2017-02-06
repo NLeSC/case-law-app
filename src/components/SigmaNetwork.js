@@ -1,7 +1,6 @@
 import React from 'react';
 import {
     Sigma,
-    RandomizeNodePositions,
     EdgeShapes,
     Filter
 } from 'react-sigma';
@@ -49,6 +48,14 @@ class SigmaNetwork extends Sigma {
             sizeAttributeValue,
             colorAttributeValue
         } = this.props.filterState;
+
+        let forceLayout = <div></div>;
+        if (this.props.mountLayout) {
+            forceLayout = <ForceLayoutNoverlap 
+                                    iterationsPerRender={1} timeout={3000} nodeMargin={5.0} 
+                                    scaleNodes={1.3} easing='quadraticInOut' maxIterations={200} 
+                                    gridSize={50} duration={500} speed={5}/>
+        }
         if (this.props.loading) {
             return null;
         } else {
@@ -58,14 +65,9 @@ class SigmaNetwork extends Sigma {
                     <GraphProperties onInitialization={this.props.updateFilterProps} sigma={this.sigma}>
                         <SizeOnAttribute attribute={sizeAttributeValue}>
                             <ColorOnAttribute attribute={colorAttributeValue}>
-                                <RandomizeNodePositions>
                                     <Filter nodesBy={nodesBy(inDegreeValue, subjectValue, minYearValue, maxYearValue)}/>
-                                    <ForceLayoutNoverlap 
-                                                    iterationsPerRender={1} timeout={3000} nodeMargin={5.0} 
-                                                    scaleNodes={1.3} easing='quadraticInOut' maxIterations={200} 
-                                                    gridSize={50} duration={500} speed={5}/>
+                                    {forceLayout}
 
-                                </RandomizeNodePositions>
                             </ColorOnAttribute>
                         </SizeOnAttribute>
                     </GraphProperties>

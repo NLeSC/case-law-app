@@ -15,6 +15,12 @@ class Network extends React.Component {
         if (this.props.data !== prevProps.data) {
             this.props.doneLoading();
         }
+        if (this.props.filterState.minYearValue !== prevProps.filterState.minYearValue) {
+            this.props.doneRemounting();
+        }
+        if (this.props.filterState.maxYearValue !== prevProps.filterState.maxYearValue) {
+            this.props.doneRemounting();
+        }
     }
 
     handleChange(e) {
@@ -34,8 +40,8 @@ class Network extends React.Component {
             node.label = node.ecli;
 
             // layout attributes
-            node.x = Math.random();
-            node.y = Math.random();
+            node.x = node.x || Math.random();
+            node.y = node.y || Math.random();
             node.size = 2 * (node.degree);
             node.color = '#000';
 
@@ -50,10 +56,11 @@ class Network extends React.Component {
 
     render() {
 
-        const data = this.onGraphLoaded(this.props.data);
+
         if (this.props.loading) {
             return null;
         } else {
+            const data = this.onGraphLoaded(this.props.data);
             return (
                 <div className="Network">
                     <SigmaNetwork renderer="canvas" style={{maxWidth:"inherit", height:"700px"}}
@@ -63,7 +70,7 @@ class Network extends React.Component {
                                     updateFilterProps={this.updateFilterProps}
                                     filterState={this.props.filterState}
                                     loading={false}
-                                    doneLoading={this.props.doneLoading}
+                                    mountLayout = {this.props.mountLayout}
                                     >           
                     </SigmaNetwork>
                 </div>

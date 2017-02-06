@@ -17,15 +17,18 @@ class App extends React.Component {
         this.setDefaultStateValues = this.setDefaultStateValues.bind(this);
         this.handleLoadData = this.handleLoadData.bind(this);
         this.doneLoading = this.doneLoading.bind(this);
+        this.doneRemounting = this.doneRemounting.bind(this);
         this.resetFilterValues.bind(this);
         const data = require('./data/data.json')
         this.state = {
             data: data,
             loading: false,
+            mountLayout: true,
             activeNode: {},
             filterState: {
                 sizeAttributeValue: "degree",
-                colorAttributeValue: "degree"
+                colorAttributeValue: "degree",
+                adjustLayout: false
             },
             graphProps: {},
         };
@@ -38,9 +41,24 @@ class App extends React.Component {
     }
 
     handleFilterChange(newFilterState) {
+        // If the layout needs to be adjust, unmount the layout
+        if (newFilterState.minYearValue || newFilterState.maxYearValue) {
+            if (this.state.filterState.adjustLayout) {
+                this.setState({
+                    "mountLayout": false
+                });
+            }
+        }
+
         // Merge the new filter state into the old one
         this.setState((prevState, props) => {
-            const mergedFilterState = prevState.filterState;
+            const mergedFilterState = {};
+            const prevFilterState = prevState.filterState;
+            for (let attrname in prevFilterState) {
+                if ({}.hasOwnProperty.call(prevFilterState, attrname)) {
+                    mergedFilterState[attrname] = prevFilterState[attrname];
+                }
+            }
             for (let attrname in newFilterState) {
                 if ({}.hasOwnProperty.call(newFilterState, attrname)) {
                     mergedFilterState[attrname] = newFilterState[attrname];
@@ -57,6 +75,7 @@ class App extends React.Component {
             graphProps: graphProps
         });
         this.setDefaultStateValues();
+
     }
 
     setDefaultStateValues() {
@@ -95,12 +114,20 @@ class App extends React.Component {
         });
     }
 
+    doneRemounting() {
+        this.setState({
+            mountLayout: true
+        });
+    }
+
     render() {
         const {
             activeNode,
             filterState,
             graphProps,
-            data
+            data,
+            loading,
+            mountLayout
         } = this.state;
         const title = data.title || "Network";
         return (
@@ -121,7 +148,9 @@ class App extends React.Component {
                 </div>
                 <div className="App-network">
                     <Network onChange={this.handleActiveNodeChange} filterState={filterState} selectedNode={activeNode}
-                            onInitialization={this.setFilterValues} loading={this.state.loading} doneLoading={this.doneLoading}
+                            onInitialization={this.setFilterValues} loading={loading} doneLoading={this.doneLoading}
+                            doneRemounting = {this.doneRemounting}
+                            mountLayout={mountLayout}
                             data={data}/>
                 </div>
                 <div className="App-attribute-pane">
