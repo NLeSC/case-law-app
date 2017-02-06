@@ -71,8 +71,8 @@ class FilterPane extends Component {
         if (this.props.graphProps) {
             // Properties of the network, the possible filter values
             const graphProps = this.props.graphProps;
-            const minInDegree = graphProps.minInDegree;
-            const maxInDegree = graphProps.maxInDegree;
+            const minInDegree = graphProps.minInDegree || 0;
+            const maxInDegree = graphProps.maxInDegree || 0;
             const minYear = graphProps.minYear || 1950;
             const maxYear = graphProps.maxYear || 2016;
             const subjectCategories = graphProps.subjectCategories || {};
@@ -109,7 +109,7 @@ class FilterPane extends Component {
                         <div>
                           <h4>Maximum year: {maxYearValue}</h4>
                             {minYear} <input type="range" min={minYear} max={maxYear} value={maxYearValue} onChange={this.handleMaxYearChange}/> {maxYear}
-                        </div>
+                        </div> 
                         <div>
                           <h4>Rechtsgebied</h4>
                           <select value={subjectValue} onChange={this.handleSubjectChange}>

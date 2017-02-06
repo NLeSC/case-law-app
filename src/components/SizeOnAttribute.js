@@ -1,5 +1,4 @@
 import React from 'react';
-import sigma from 'react-sigma/sigma/main';
 import {
     embedProps
 } from 'react-sigma/lib/tools';

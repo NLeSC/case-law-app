@@ -102,10 +102,11 @@ class App extends React.Component {
             graphProps,
             data
         } = this.state;
+        const title = data.title || "Network";
         return (
             <div className="App">
                 <div className="App-header">
-                  <h2>Case Law Analytics</h2>
+                  <h2>Case Law Analytics - {title}</h2>
                 </div>
                 <div className="App-filter-pane">
                     <div className="App-form">

@@ -3,8 +3,7 @@ import {
     Sigma,
     RandomizeNodePositions,
     EdgeShapes,
-    Filter,
-    LoadJSON
+    Filter
 } from 'react-sigma';
 import ForceLayoutNoverlap from './ForceLayoutNoverlap';
 import GraphProperties from './GraphProperties';
