@@ -17,14 +17,14 @@ class SizeOnAttribute extends React.Component {
 
     constructor(props: Props) {
         super(props);
-        this._updateSize(props);
+        this.updateSize(props);
     }
 
     componentWillReceiveProps(props: Props) {
-        this._updateSize(props);
+        this.updateSize(props);
     }
 
-    _updateSize(props) {
+    updateSize(props) {
         const s = props.sigma;
         let minSize = Number.MAX_SAFE_INTEGER;
         s.graph.nodes().forEach(node => {

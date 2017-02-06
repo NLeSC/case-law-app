@@ -14,6 +14,7 @@ class FilterPane extends Component {
         this.handleMinYearChange = this.handleMinYearChange.bind(this);
         this.handleMaxYearChange = this.handleMaxYearChange.bind(this);
         this.handleSizeAttributeChange = this.handleSizeAttributeChange.bind(this);
+        this.handleColorAttributeChange = this.handleColorAttributeChange.bind(this);
     }
 
     handleInDegreeChange(event) {
@@ -51,6 +52,13 @@ class FilterPane extends Component {
         this.props.onChange(newState);
     }
 
+    handleColorAttributeChange(event) {
+        const newState = {
+            colorAttributeValue: event.target.value
+        };
+        this.props.onChange(newState);
+    }
+
     componentIsMounted() {
         //Set the default values
         const newState = {
@@ -75,6 +83,9 @@ class FilterPane extends Component {
             const listSizeAttributes = sizeAttributes.map(
                 (option) => <option value={option} key={option}> {option} </option>
             );
+            const listColorAttributes = sizeAttributes.map(
+                (option) => <option value={option} key={option}> {option} </option>
+            );
 
             // The current values
             const inDegreeValue = this.props.filterState.inDegreeValue || minInDegree;
@@ -82,6 +93,7 @@ class FilterPane extends Component {
             const minYearValue = this.props.filterState.minYearValue || minYear;
             const maxYearValue = this.props.filterState.maxYearValue || maxYear;
             const sizeAttributeValue = this.props.filterState.sizeAttributeValue;
+            const colorAttributeValue = this.props.filterState.colorAttributeValue;
             return (
                 <div>
                     <h2>Filters</h2>
@@ -110,6 +122,12 @@ class FilterPane extends Component {
                           <h4>Node Size</h4>
                           <select value={sizeAttributeValue} onChange={this.handleSizeAttributeChange}>
                             {listSizeAttributes}
+                          </select>
+                        </div>
+                        <div>
+                          <h4>Node Color</h4>
+                          <select value={colorAttributeValue} onChange={this.handleColorAttributeChange}>
+                            {listColorAttributes}
                           </select>
                         </div>
                     </form>

@@ -9,6 +9,7 @@ import {
 import ForceLayoutNoverlap from './ForceLayoutNoverlap';
 import GraphProperties from './GraphProperties';
 import SizeOnAttribute from './SizeOnAttribute';
+import ColorOnAttribute from './ColorOnAttribute';
 
 class SigmaNetwork extends Sigma {
 
@@ -46,7 +47,8 @@ class SigmaNetwork extends Sigma {
             subjectValue,
             minYearValue,
             maxYearValue,
-            sizeAttributeValue
+            sizeAttributeValue,
+            colorAttributeValue
         } = this.props.filterState;
         if (this.props.loading) {
             return null;
@@ -56,13 +58,15 @@ class SigmaNetwork extends Sigma {
                     <EdgeShapes default="arrow" sigma={this.sigma}/>
                     <GraphProperties onInitialization={this.props.updateFilterProps} sigma={this.sigma}>
                         <SizeOnAttribute attribute={sizeAttributeValue}>
-                            <RandomizeNodePositions>
-                                <Filter nodesBy={nodesBy(inDegreeValue, subjectValue, minYearValue, maxYearValue)}/>
-                                <ForceLayoutNoverlap 
-                                                iterationsPerRender={1} timeout={3000} nodeMargin={5.0} 
-                                                scaleNodes={1.3} easing='quadraticInOut' duration={500}/>
+                            <ColorOnAttribute attribute={colorAttributeValue}>
+                                <RandomizeNodePositions>
+                                    <Filter nodesBy={nodesBy(inDegreeValue, subjectValue, minYearValue, maxYearValue)}/>
+                                    <ForceLayoutNoverlap 
+                                                    iterationsPerRender={1} timeout={3000} nodeMargin={5.0} 
+                                                    scaleNodes={1.3} easing='quadraticInOut' duration={500}/>
 
-                            </RandomizeNodePositions>
+                                </RandomizeNodePositions>
+                            </ColorOnAttribute>
                         </SizeOnAttribute>
                     </GraphProperties>
                 </div>

@@ -18,6 +18,7 @@ class Network extends React.Component {
     }
 
     handleChange(e) {
+        console.log(e.data.node);
         this.props.onChange(e.data.node);
     }
 

@@ -23,8 +23,11 @@ class App extends React.Component {
             data: data,
             loading: false,
             activeNode: {},
-            filterState: {},
-            graphProps: {}
+            filterState: {
+                sizeAttributeValue: "degree",
+                colorAttributeValue: "degree"
+            },
+            graphProps: {},
         };
     }
 
@@ -64,6 +67,7 @@ class App extends React.Component {
             filterState.inDegreeValue = filterState.inDegreeValue || 0;
             filterState.subjectValue = filterState.subjectValue || "all";
             filterState.sizeAttributeValue = filterState.sizeAttributeValue || "degree";
+            filterState.colorAttributeValue = filterState.sizeAttributeValue || "color";
             return {
                 filterState: filterState
             };
