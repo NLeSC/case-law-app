@@ -8,6 +8,7 @@ import ForceLayoutNoverlap from './ForceLayoutNoverlap';
 import GraphProperties from './GraphProperties';
 import SizeOnAttribute from './SizeOnAttribute';
 import ColorOnAttribute from './ColorOnAttribute';
+import EmptyComponent from './utils.js';
 
 class SigmaNetwork extends Sigma {
 
@@ -49,7 +50,7 @@ class SigmaNetwork extends Sigma {
             colorAttributeValue
         } = this.props.filterState;
 
-        let forceLayout = <div></div>;
+        let forceLayout = <EmptyComponent/>; //<span></span>;
         if (this.props.mountLayout) {
             forceLayout = <ForceLayoutNoverlap 
                                     iterationsPerRender={1} timeout={3000} nodeMargin={5.0} 
@@ -67,7 +68,6 @@ class SigmaNetwork extends Sigma {
                             <ColorOnAttribute attribute={colorAttributeValue}>
                                     <Filter nodesBy={nodesBy(inDegreeValue, subjectValue, minYearValue, maxYearValue)}/>
                                     {forceLayout}
-
                             </ColorOnAttribute>
                         </SizeOnAttribute>
                     </GraphProperties>

@@ -149,7 +149,7 @@ class App extends React.Component {
                 <div className="App-network">
                     <Network onChange={this.handleActiveNodeChange} filterState={filterState} selectedNode={activeNode}
                             onInitialization={this.setFilterValues} loading={loading} doneLoading={this.doneLoading}
-                            doneRemounting = {this.doneRemounting}
+                            doneRemounting={this.doneRemounting}
                             mountLayout={mountLayout}
                             data={data}/>
                 </div>

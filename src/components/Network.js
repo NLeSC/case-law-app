@@ -70,7 +70,7 @@ class Network extends React.Component {
                                     updateFilterProps={this.updateFilterProps}
                                     filterState={this.props.filterState}
                                     loading={false}
-                                    mountLayout = {this.props.mountLayout}
+                                    mountLayout={this.props.mountLayout}
                                     >           
                     </SigmaNetwork>
                 </div>
