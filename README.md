@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/NLeSC/case-law-app.svg?branch=master)](https://travis-ci.org/NLeSC/case-law-app)
 # Network visualization for Case Law Analytics
 The visualization is shown at [https://nlesc.github.io/case-law-app/](https://nlesc.github.io/case-law-app/).
 
