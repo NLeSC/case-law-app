@@ -10,7 +10,7 @@ class LoadData extends React.Component {
         this.onClick = this.onClick.bind(this);
     }
 
-    onClick(e, file) {
+    onClick(e) {
         const filetxt = e.target.result; //fileReader.readAsDataURL(file);
         const data = JSON.parse(filetxt);
         this.props.onClick(data);
