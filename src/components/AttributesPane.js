@@ -24,7 +24,7 @@ class AttributesPane extends React.Component {
         if (this.props.activeNode.id) {
             return (
                 <div>
-                    <h4><a href={id}>{title}</a> </h4>
+                    <h4><a href={id} target="_blank">{title}</a> </h4>
                     <div> <b>Date: </b>{date} </div>
                     <div> <b>Articles: </b> {articles_s} </div>
                     <div> <b>Abstract: </b>{abstract}</div>
