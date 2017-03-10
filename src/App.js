@@ -19,7 +19,7 @@ class App extends React.Component {
         this.doneLoading = this.doneLoading.bind(this);
         this.doneRemounting = this.doneRemounting.bind(this);
         this.resetFilterValues.bind(this);
-        const data = require('./data/data.json')
+        const data = require('./data/data.json');
         this.state = {
             data: data,
             loading: false,
