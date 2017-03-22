@@ -49,9 +49,17 @@ class GraphProperties extends React.Component {
     }
 
     getSizeAttributes() {
-        //TODO: check if the nodes indeed have these attributes, 
-        // or automatically extract attributes
-        return ['degree', 'in_degree', 'out_degree', 'year', 'hubs', 'authorities', 'betweenness_centrality', 'count_annotation'];
+        const attributes = ['degree', 'in_degree', 'out_degree', 'year', 'hubs', 'authorities', 'betweenness_centrality', 'count_annotation', 'rel_in_degree'];
+        // Check if first node contains these attributes
+        const s = this.props.sigma;
+        let exampleNode = [];
+        if (s.graph.nodes().length > 0) {
+            exampleNode = s.graph.nodes()[0];
+        }
+        const filteredAttributes = attributes.filter(att => {
+            return (att in exampleNode);
+        });
+        return filteredAttributes;
     }
 
     render() {
