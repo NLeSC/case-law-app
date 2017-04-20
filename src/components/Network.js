@@ -24,8 +24,17 @@ class Network extends React.Component {
     }
 
     handleChange(e) {
-        console.log(e.data.node);
-        this.props.onChange(e.data.node);
+        const node = e.data.node;
+        console.log(node);
+        if (node.selected) {
+            node.selected = false;
+            node.color = node.oldcolor;
+        } else {
+            node.selected = true;
+            node.oldcolor = e.data.color;
+            node.color = '#ff0000';
+        }
+        this.props.onChange(node);
     }
 
     updateFilterProps(graphProps) {

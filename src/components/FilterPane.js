@@ -16,6 +16,7 @@ class FilterPane extends Component {
         this.handleSizeAttributeChange = this.handleSizeAttributeChange.bind(this);
         this.handleColorAttributeChange = this.handleColorAttributeChange.bind(this);
         this.handleAdjustLayoutChange = this.handleAdjustLayoutChange.bind(this);
+        this.handleFilterSelectedChange = this.handleFilterSelectedChange.bind(this);
     }
 
     handleInDegreeChange(event) {
@@ -67,6 +68,13 @@ class FilterPane extends Component {
         this.props.onChange(newState);
     }
 
+    handleFilterSelectedChange(event) {
+        const newState = {
+            filterSelected: event.target.checked
+        };
+        this.props.onChange(newState);
+    }
+
     componentIsMounted() {
         //Set the default values
         const newState = {
@@ -103,6 +111,7 @@ class FilterPane extends Component {
             const sizeAttributeValue = this.props.filterState.sizeAttributeValue;
             const colorAttributeValue = this.props.filterState.colorAttributeValue;
             const adjustLayout = this.props.filterState.adjustLayout;
+            const filterSelected = this.props.filterState.filterSelected; //|| false;
             return (
                 <div>
                     <h2>Filters</h2>
@@ -130,6 +139,12 @@ class FilterPane extends Component {
                             <option value="all">All subjects</option>
                             {listSubjectOptions}
                           </select>
+                        </div>
+                        <div>
+                            <h4>Selection </h4>
+                            <label> Filter selected:
+                                <input name="filterSelected" type="checkbox" checked={filterSelected} onChange={this.handleFilterSelectedChange}/>
+                            </label>
                         </div>
                         <h2> Appearances </h2>
                         <div>

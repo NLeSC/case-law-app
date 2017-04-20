@@ -35,10 +35,22 @@ class SigmaNetwork extends Sigma {
             };
         };
 
-        const nodesBy = (indegree, subject, minYearValue, maxYearValue) => {
+        const nodesBySelected = filterSelected => {
+            return node => {
+                if (filterSelected) {
+                    return node.selected;
+                } else {
+                    return true;
+                }
+            };
+        };
+
+
+        const nodesBy = (indegree, subject, minYearValue, maxYearValue, filterSelected) => {
             return node => nodesByIndegree(indegree)(node) &&
                 nodesByYear(minYearValue, maxYearValue)(node) &&
-                nodesBySubject(subject)(node);
+                nodesBySubject(subject)(node) &&
+                nodesBySelected(filterSelected)(node);
         };
 
         const {
@@ -47,7 +59,8 @@ class SigmaNetwork extends Sigma {
             minYearValue,
             maxYearValue,
             sizeAttributeValue,
-            colorAttributeValue
+            colorAttributeValue,
+            filterSelected
         } = this.props.filterState;
 
         let forceLayout = <EmptyComponent/>; //<span></span>;
@@ -66,7 +79,7 @@ class SigmaNetwork extends Sigma {
                     <GraphProperties onInitialization={this.props.updateFilterProps} sigma={this.sigma}>
                         <SizeOnAttribute attribute={sizeAttributeValue}>
                             <ColorOnAttribute attribute={colorAttributeValue}>
-                                    <Filter nodesBy={nodesBy(inDegreeValue, subjectValue, minYearValue, maxYearValue)}/>
+                                    <Filter nodesBy={nodesBy(inDegreeValue, subjectValue, minYearValue, maxYearValue, filterSelected)}/>
                                     {forceLayout}
                             </ColorOnAttribute>
                         </SizeOnAttribute>

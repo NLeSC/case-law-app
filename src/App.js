@@ -28,7 +28,8 @@ class App extends React.Component {
             filterState: {
                 sizeAttributeValue: "degree",
                 colorAttributeValue: "degree",
-                adjustLayout: false
+                adjustLayout: false,
+                filterSelected: false
             },
             graphProps: {},
         };

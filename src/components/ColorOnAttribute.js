@@ -45,7 +45,10 @@ class ColorOnAttribute extends React.Component {
         const cg = colormap(options);
         s.graph.nodes().forEach(node => {
             const index = (node[props.attribute] - minValue) * scale;
-            node.color = cg[Math.floor(index)];
+            node.oldcolor = cg[Math.floor(index)];
+            if (!node.selected) {
+                node.color = node.oldcolor;
+            }
         });
 
     }
