@@ -12,6 +12,30 @@ import EmptyComponent from './utils.js';
 
 class SigmaNetwork extends Sigma {
 
+    constructor(props) {
+        super(props);
+        this.getVisibleNodes = this.getVisibleNodes.bind(this);
+    }
+
+    getVisibleNodes() {
+        console.log("Retrieving visible nodes");
+        const visibleNodes = [];
+        if (this.props.graph.nodes) {
+            this.props.graph.nodes.forEach(node => {
+                let sigmaNode = this.sigma.graph.nodes(node.id);
+                if (!sigmaNode.hidden) {
+                    visibleNodes.push(node);
+                }
+            });
+        }
+        return visibleNodes;
+    }
+
+
+    componentDidMount() {
+        this.props.setVisibleNodeFunction(this.getVisibleNodes);
+    }
+
     render() {
         const nodesByIndegree = indegree => {
             return node => "in_degree" in node ? (node.in_degree >= indegree) : true;

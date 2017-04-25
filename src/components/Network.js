@@ -9,6 +9,7 @@ class Network extends React.Component {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.updateFilterProps = this.updateFilterProps.bind(this);
+        this.setVisibleNodeFunction = this.setVisibleNodeFunction.bind(this);
     }
 
     componentDidUpdate(prevProps) {
@@ -39,6 +40,10 @@ class Network extends React.Component {
 
     updateFilterProps(graphProps) {
         this.props.onInitialization(graphProps);
+    }
+
+    setVisibleNodeFunction(visibleNodeFunction) {
+        this.props.setVisibleNodeFunction(visibleNodeFunction);
     }
 
 
@@ -80,6 +85,7 @@ class Network extends React.Component {
                                     filterState={this.props.filterState}
                                     loading={false}
                                     mountLayout={this.props.mountLayout}
+                                    setVisibleNodeFunction={this.setVisibleNodeFunction}
                                     >           
                     </SigmaNetwork>
                 </div>

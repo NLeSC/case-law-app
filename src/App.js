@@ -5,7 +5,7 @@ import Network from './components/Network';
 import AttributesPane from './components/AttributesPane';
 import FilterPane from './components/FilterPane';
 import LoadData from './components/LoadData';
-
+import DownloadData from './components/DownloadData';
 
 class App extends React.Component {
 
@@ -19,6 +19,7 @@ class App extends React.Component {
         this.doneLoading = this.doneLoading.bind(this);
         this.doneRemounting = this.doneRemounting.bind(this);
         this.resetFilterValues.bind(this);
+        this.setVisibleNodeFunction = this.setVisibleNodeFunction.bind(this);
         const data = require('./data/data.json');
         this.state = {
             data: data,
@@ -32,6 +33,7 @@ class App extends React.Component {
                 filterSelected: false
             },
             graphProps: {},
+            visibleNodeFunction: () => []
         };
     }
 
@@ -121,6 +123,13 @@ class App extends React.Component {
         });
     }
 
+    setVisibleNodeFunction(visibleNodeFunction) {
+        console.log("Setting visible nodes function");
+        this.setState({
+            visibleNodeFunction: visibleNodeFunction
+        });
+    }
+
     render() {
         const {
             activeNode,
@@ -128,7 +137,8 @@ class App extends React.Component {
             graphProps,
             data,
             loading,
-            mountLayout
+            mountLayout,
+            visibleNodeFunction
         } = this.state;
         const title = data.title || "Network";
         return (
@@ -136,23 +146,28 @@ class App extends React.Component {
                 <div className="App-header">
                   <h2>Case Law Analytics - {title}</h2>
                 </div>
+            
                 <div className="App-filter-pane">
                     <div className="App-form">
                         <LoadData
                           onClick={this.handleLoadData}
                         />
+                    <DownloadData data={visibleNodeFunction}/>
                     </div>
-
+                
                     <FilterPane onChange={this.handleFilterChange}
                                 filterState={filterState}
                                 graphProps={graphProps} />
-                </div>
+            
+                 </div>   
                 <div className="App-network">
                     <Network onChange={this.handleActiveNodeChange} filterState={filterState} selectedNode={activeNode}
                             onInitialization={this.setFilterValues} loading={loading} doneLoading={this.doneLoading}
                             doneRemounting={this.doneRemounting}
                             mountLayout={mountLayout}
-                            data={data}/>
+                            data={data}
+                            setVisibleNodeFunction={this.setVisibleNodeFunction}
+                            />
                 </div>
                 <div className="App-attribute-pane">
                     <AttributesPane activeNode={activeNode}/>
