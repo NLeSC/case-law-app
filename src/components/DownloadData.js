@@ -1,4 +1,5 @@
 import React from 'react';
+import Papa from 'babyparse';
 
 class DownloadData extends React.Component {
 
@@ -10,19 +11,9 @@ class DownloadData extends React.Component {
     }
 
     dataToCSV(data) {
-        const columns = ['id', 'ecli'];
-        let lineArray = [];
-        data.forEach(function (o, index) {
-            if (!o.hidden) {
-                let line = [];
-                columns.forEach(function (col) {
-                    line.push(o[col]);
-                })
-                lineArray.push(line.join(","));
-            }
-        });
-        var csvContent = lineArray.join("\n");
-        return csvContent;
+        //TODO: filter columns to download
+        const csvtext = Papa.unparse(data);
+        return csvtext;
     }
 
 
