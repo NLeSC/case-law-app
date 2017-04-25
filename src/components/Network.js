@@ -29,11 +29,8 @@ class Network extends React.Component {
         console.log(node);
         if (node.selected) {
             node.selected = false;
-            node.color = node.oldcolor;
         } else {
             node.selected = true;
-            node.oldcolor = e.data.color;
-            node.color = '#ff0000';
         }
         this.props.onChange(node);
     }
