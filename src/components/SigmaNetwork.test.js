@@ -28,7 +28,7 @@ it('should render component', () => {
     const loading = false;
     const sigmaNetworkJSX = <SigmaNetwork loading={loading} filterState={defaultfilterState}/>;
     const wrapper = shallow(sigmaNetworkJSX);
-    expect(wrapper.find("div")).toHaveLength(1);
+    expect(wrapper.find("div").length).toBe(1);
 });
 
 

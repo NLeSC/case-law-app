@@ -4,18 +4,18 @@
     "private": true,
     "homepage": "https://nlesc.github.io/case-law-app",
     "devDependencies": {
-        "enzyme": "^2.7.1",
-        "gh-pages": "^0.12.0",
-        "react-addons-test-utils": "^15.4.2",
-        "react-dom": "^15.4.2",
-        "react-scripts": "=0.7.0"
+        "enzyme": "=2.7.1",
+        "gh-pages": "=0.12.0",
+        "react-addons-test-utils": "=15.4.2",
+        "react-dom": "15.4.2",
+        "react-scripts": "0.7.0"
     },
     "dependencies": {
-        "colormap": "^2.2.0",
-        "react": "^15.4.2",
-        "react-dom": "^15.4.2",
+        "colormap": "2.2.0",
+        "react": "15.4.2",
+        "react-dom": "15.4.2",
         "react-sigma": "=1.2.17",
-        "react-simple-file-input": "^1.0.0"
+        "react-simple-file-input": "1.0.0"
     },
     "scripts": {
         "start": "react-scripts start",

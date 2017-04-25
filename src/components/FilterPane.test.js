@@ -30,7 +30,7 @@ it('should render component', () => {
                                 filterState={filterState}
                                 graphProps={graphProps} />;
     const wrapper = render(filterPaneJSX);
-    expect(wrapper.find("form")).toHaveLength(1);
+    expect(wrapper.find("form").length).toBe(1);
 });
 
 

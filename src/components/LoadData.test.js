@@ -20,7 +20,7 @@ it('should render component', () => {
     const onClick = jest.fn();
     const loadDataJSX = <LoadData onClick = {onClick}/ >;
     const wrapper = render(loadDataJSX);
-    expect(wrapper.find(".inputClass")).toHaveLength(1);
+    expect(wrapper.find(".inputClass").length).toBe(1);
     expect(wrapper.find(FileInput)).toBeTruthy();
 });
 
