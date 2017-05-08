@@ -1,5 +1,5 @@
 import SigmaNetwork from './SigmaNetwork';
-import ForceLayoutNoverlap from './ForceLayoutNoverlap';
+import ForceAtlas2 from './ForceAtlas2';
 import React from 'react';
 import {
     shallow,
@@ -16,9 +16,14 @@ const defaultfilterState = {
     colorAttributeValue: 0
 };
 
+const defaultGraph = {
+    nodes: [],
+    edges: []
+};
+
 it('should render empty component', () => {
     const loading = true;
-    const sigmaNetworkJSX = <SigmaNetwork loading={loading} filterState={defaultfilterState}/>;
+    const sigmaNetworkJSX = <SigmaNetwork loading={loading} filterState={defaultfilterState} graph={defaultGraph}/>;
     const wrapper = shallow(sigmaNetworkJSX);
     expect(wrapper.type()).toBe(null);
 });
@@ -26,7 +31,7 @@ it('should render empty component', () => {
 
 it('should render component', () => {
     const loading = false;
-    const sigmaNetworkJSX = <SigmaNetwork loading={loading} filterState={defaultfilterState}/>;
+    const sigmaNetworkJSX = <SigmaNetwork loading={loading} filterState={defaultfilterState} graph={defaultGraph}/>;
     const wrapper = shallow(sigmaNetworkJSX);
     expect(wrapper.find("div").length).toBe(1);
 });
@@ -35,7 +40,7 @@ it('should render component', () => {
 it('should mount ForceLayout', () => {
     const loading = false;
     const mountLayout = true;
-    const sigmaNetworkJSX = <SigmaNetwork loading={loading} filterState={defaultfilterState}/>;
+    const sigmaNetworkJSX = <SigmaNetwork loading={loading} filterState={defaultfilterState} graph={defaultGraph}/>;
     const wrapper = shallow(sigmaNetworkJSX);
-    expect(wrapper.find(ForceLayoutNoverlap)).toBeTruthy();
+    expect(wrapper.find(ForceAtlas2)).toBeTruthy();
 });
