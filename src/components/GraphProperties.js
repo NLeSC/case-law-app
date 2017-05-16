@@ -26,6 +26,7 @@ class GraphProperties extends React.Component {
             minYear = Number.MAX_SAFE_INTEGER,
             maxYear = 0;
         const subjectCategories = {};
+        const creatorCategories = {};
         s.graph.nodes().forEach(node => {
             const inDegree = s.graph.degree(node.id, "in");
             maxInDegree = Math.max(maxInDegree, inDegree);
@@ -37,6 +38,8 @@ class GraphProperties extends React.Component {
             maxYear = Math.max(maxYear, year);
             const subj_split = node.subject.split("#");
             subjectCategories[node.subject] = subj_split[subj_split.length - 1];
+            const creator_split = node.creator.split("/");
+            creatorCategories[node.creator] = creator_split[creator_split.length - 1];
         });
         return {
             minInDegree: 0,
@@ -44,6 +47,7 @@ class GraphProperties extends React.Component {
             minYear: minYear,
             maxYear: maxYear,
             subjectCategories: subjectCategories,
+            creatorCategories: creatorCategories,
             sizeAttributes: this.getSizeAttributes()
         };
     }

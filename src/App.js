@@ -88,6 +88,7 @@ class App extends React.Component {
             filterState.maxYearValue = filterState.maxYearValue || prevState.graphProps.maxYear;
             filterState.inDegreeValue = filterState.inDegreeValue || 0;
             filterState.subjectValue = filterState.subjectValue || "all";
+            filterState.creatorValue = filterState.creatorValue || "all";
             filterState.sizeAttributeValue = filterState.sizeAttributeValue || "degree";
             filterState.colorAttributeValue = filterState.sizeAttributeValue || "color";
             return {

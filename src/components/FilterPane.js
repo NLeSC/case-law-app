@@ -11,6 +11,7 @@ class FilterPane extends Component {
         super(props);
         this.handleInDegreeChange = this.handleInDegreeChange.bind(this);
         this.handleSubjectChange = this.handleSubjectChange.bind(this);
+        this.handleCreatorChange = this.handleCreatorChange.bind(this);
         this.handleMinYearChange = this.handleMinYearChange.bind(this);
         this.handleMaxYearChange = this.handleMaxYearChange.bind(this);
         this.handleSizeAttributeChange = this.handleSizeAttributeChange.bind(this);
@@ -54,6 +55,13 @@ class FilterPane extends Component {
         this.props.onChange(newState);
     }
 
+    handleCreatorChange(event) {
+        const newState = {
+            creatorValue: event.target.value
+        };
+        this.props.onChange(newState);
+    }
+
     handleSizeAttributeChange(event) {
         const newState = {
             sizeAttributeValue: event.target.value
@@ -92,8 +100,13 @@ class FilterPane extends Component {
             const minYear = graphProps.minYear || 1950;
             const maxYear = graphProps.maxYear || 2016;
             const subjectCategories = graphProps.subjectCategories || {};
+            const creatorCategories = graphProps.creatorCategories || {};
             const listSubjectOptions = Object.keys(subjectCategories).map(
                 (option) => <option value={option} key={option}> {subjectCategories[option]} </option>
+            );
+
+            const listCreatorOptions = Object.keys(creatorCategories).map(
+                (option) => <option value={option} key={option}> {creatorCategories[option]} </option>
             );
             const sizeAttributes = graphProps.sizeAttributes || [];
             const listSizeAttributes = sizeAttributes.map(
@@ -106,6 +119,7 @@ class FilterPane extends Component {
             // The current values
             const inDegreeValue = this.props.filterState.inDegreeValue || minInDegree;
             const subjectValue = this.props.filterState.subjectValue;
+            const creatorValue = this.props.filterState.creatorValue;
             const minYearValue = this.props.filterState.minYearValue || minYear;
             const maxYearValue = this.props.filterState.maxYearValue || maxYear;
             const sizeAttributeValue = this.props.filterState.sizeAttributeValue;
@@ -138,6 +152,13 @@ class FilterPane extends Component {
                           <select value={subjectValue} onChange={this.handleSubjectChange}>
                             <option value="all">All subjects</option>
                             {listSubjectOptions}
+                          </select>
+                        </div>
+                        <div>
+                          <h4>Instantie</h4>
+                          <select value={creatorValue} onChange={this.handleCreatorChange}>
+                            <option value="all">All creators</option>
+                            {listCreatorOptions}
                           </select>
                         </div>
                         <div>
