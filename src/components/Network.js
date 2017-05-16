@@ -48,7 +48,8 @@ class Network extends React.Component {
         data.nodes.forEach(node => {
             node.articles_s = node.articles.join(", ");
             node.title = node.title === "" ? node.ecli : node.title;
-            node.label = node.ecli;
+            let ecli_split = node.ecli.split(":");
+            node.label = ecli_split[2] + ' ' + ecli_split[3];
 
             // layout attributes
             node.x = node.x || Math.random();
