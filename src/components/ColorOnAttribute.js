@@ -17,20 +17,36 @@ class ColorOnAttribute extends React.Component {
 
     constructor(props: Props) {
         super(props);
-        this.updateSize(props);
+        this.updateColor(props);
+        this.updateColorCategorical = this.updateColorCategorical.bind(this);
+        this.updateColorNumerical = this.updateColorNumerical.bind(this);
     }
 
     componentWillReceiveProps(props: Props) {
-        this.updateSize(props);
+        this.updateColor(props);
     }
 
-    updateSize(props) {
+    updateColor(props) {
         const s = props.sigma;
+        const att = props.attribute;
+        const nodes = s.graph.nodes();
+        if (nodes.length > 0) {
+            if (typeof nodes[0][att] === 'string') {
+                this.updateColorCategorical(nodes, att);
+            } else {
+                this.updateColorNumerical(nodes, att);
+            }
+
+        }
+
+    }
+
+    updateColorNumerical(nodes, att) {
         let minValue = Number.MAX_SAFE_INTEGER;
         let maxValue = 0;
-        s.graph.nodes().forEach(node => {
-            minValue = Math.min(minValue, node[props.attribute]);
-            maxValue = Math.max(maxValue, node[props.attribute]);
+        nodes.forEach(node => {
+            minValue = Math.min(minValue, node[att]);
+            maxValue = Math.max(maxValue, node[att]);
         });
 
         //update color
@@ -38,20 +54,14 @@ class ColorOnAttribute extends React.Component {
         // Don't use 2 most extreme values
         const scale = (nshades - 4) / (maxValue - minValue)
         const cm_unselected = colormap({
-            colormap: 'greys', // pick a builtin colormap or add your own 
-            nshades: nshades, // how many divisions 
-            format: 'hex', // "hex" or "rgb" or "rgbaString" 
-            alpha: 1 // set an alpha value or a linear alpha mapping [start, end] 
-        });
-        const cm_selected = colormap({
             colormap: 'greens', // pick a builtin colormap or add your own 
             nshades: nshades, // how many divisions 
             format: 'hex', // "hex" or "rgb" or "rgbaString" 
             alpha: 1 // set an alpha value or a linear alpha mapping [start, end] 
         });
-        s.graph.nodes().forEach(node => {
-            const index = 2 + (node[props.attribute] - minValue) * scale;
-            node.color_selected = cm_selected[Math.floor(index)];
+        nodes.forEach(node => {
+            const index = 2 + (node[att] - minValue) * scale;
+            node.color_selected = 'black';
             node.color_unselected = cm_unselected[Math.floor(index)];
             if (node.selected) {
                 node.color = node.color_selected;
@@ -59,7 +69,37 @@ class ColorOnAttribute extends React.Component {
                 node.color = node.color_unselected;
             }
         });
+    }
 
+    updateColorCategorical(nodes, att) {
+        let values = [];
+        nodes.forEach(node => {
+            let value = node[att];
+            if (values.indexOf(value) === -1) {
+                values.push(value);
+            }
+        });
+
+        //update color
+        const nshades = Math.max(11, values.length);
+        const scale = nshades / values.length;
+        const cm_unselected = colormap({
+            colormap: 'earth', // pick a builtin colormap or add your own 
+            nshades: nshades, // how many divisions 
+            format: 'hex', // "hex" or "rgb" or "rgbaString" 
+            alpha: 1 // set an alpha value or a linear alpha mapping [start, end] 
+        });
+
+        nodes.forEach(node => {
+            const index = Math.floor(scale * values.indexOf(node[att]));
+            node.color_selected = 'black';
+            node.color_unselected = cm_unselected[index];
+            if (node.selected) {
+                node.color = node.color_selected;
+            } else {
+                node.color = node.color_unselected;
+            }
+        });
     }
 
 

@@ -11,6 +11,7 @@ class GraphProperties extends React.Component {
     constructor(props: Props) {
         super(props);
         this.getGraphProperties = this.getGraphProperties.bind(this);
+        this.getcolorAttributes = this.getcolorAttributes.bind(this);
     }
 
 
@@ -48,12 +49,27 @@ class GraphProperties extends React.Component {
             maxYear: maxYear,
             subjectCategories: subjectCategories,
             creatorCategories: creatorCategories,
-            sizeAttributes: this.getSizeAttributes()
+            sizeAttributes: this.getSizeAttributes(),
+            colorAttributes: this.getcolorAttributes()
         };
     }
 
     getSizeAttributes() {
         const attributes = ['degree', 'in_degree', 'out_degree', 'year', 'hubs', 'authorities', 'betweenness_centrality', 'closeness_centrality', 'count_annotation', 'rel_in_degree', 'pagerank'];
+        // Check if first node contains these attributes
+        const s = this.props.sigma;
+        let exampleNode = [];
+        if (s.graph.nodes().length > 0) {
+            exampleNode = s.graph.nodes()[0];
+        }
+        const filteredAttributes = attributes.filter(att => {
+            return (att in exampleNode);
+        });
+        return filteredAttributes;
+    }
+
+    getcolorAttributes() {
+        const attributes = ['creator', 'subject', 'degree', 'in_degree', 'out_degree', 'year', 'hubs', 'authorities', 'betweenness_centrality', 'closeness_centrality', 'count_annotation', 'rel_in_degree', 'pagerank'];
         // Check if first node contains these attributes
         const s = this.props.sigma;
         let exampleNode = [];

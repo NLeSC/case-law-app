@@ -109,10 +109,11 @@ class FilterPane extends Component {
                 (option) => <option value={option} key={option}> {creatorCategories[option]} </option>
             );
             const sizeAttributes = graphProps.sizeAttributes || [];
+            const colorAttributes = graphProps.colorAttributes || [];
             const listSizeAttributes = sizeAttributes.map(
                 (option) => <option value={option} key={option}> {option} </option>
             );
-            const listColorAttributes = sizeAttributes.map(
+            const listColorAttributes = colorAttributes.map(
                 (option) => <option value={option} key={option}> {option} </option>
             );
 
