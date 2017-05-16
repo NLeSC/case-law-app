@@ -141,10 +141,18 @@ class App extends React.Component {
             visibleNodeFunction
         } = this.state;
         const title = data.title || "Network";
+        const version = require('./../package.json').version;
+        const version_url = "https://github.com/NLeSC/case-law-app/releases/tag/v" + version;
         return (
             <div className="App">
                 <div className="App-header">
-                  <h2>Case Law Analytics - {title}</h2>
+                    <div className="App-title">
+                      <h3>Case Law Analytics - {title}</h3>
+                    </div>
+                    <div className="App-info">
+                      <p><a href={version_url}>Version {version}</a></p>
+                     <p> <a href="https://github.com/NLeSC/case-law-app">Source code</a> </p>
+                    </div>
                 </div>
             
                 <div className="App-filter-pane">

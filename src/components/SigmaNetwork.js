@@ -93,11 +93,6 @@ class SigmaNetwork extends Sigma {
         const timeout = Math.max(nrNodes * 25, 3000);
         let forceLayout = <EmptyComponent/>; //<span></span>;
         if (this.props.mountLayout) {
-            //            forceLayout = <ForceLayoutNoverlap 
-            //                                    iterationsPerRender={1} timeout={3000} nodeMargin={5.0} 
-            //                                    scaleNodes={1.3} easing='quadraticInOut' maxIterations={200} 
-            //                                    gridSize={50} duration={500} speed={5}/>
-            //<NOverlap maxIterations={200} gridSize={50} duration={500} speed={5}/>
             forceLayout = <ForceAtlas2 
                                 iterationsPerRender={iterationsPerRender}  timeout={timeout}   gravity={1.5}                
                                 scalingRatio={1.3}  >    
