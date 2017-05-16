@@ -1,10 +1,12 @@
 [![Build Status](https://travis-ci.org/NLeSC/case-law-app.svg?branch=master)](https://travis-ci.org/NLeSC/case-law-app)
+[![DOI](https://zenodo.org/badge/79349354.svg)](https://zenodo.org/badge/latestdoi/79349354)
+
 # Network visualization for Case Law Analytics
 The visualization is shown at [https://nlesc.github.io/case-law-app/](https://nlesc.github.io/case-law-app/).
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-
+If you use this software or the online tool, please acknowledge by citing the DOI.
 
 ## Installation
 Clone the github repository:
