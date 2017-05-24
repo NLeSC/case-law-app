@@ -1,3 +1,12 @@
+h4 {
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-weight: bold;
+}
+
 .App {
     text-align: center;
     background: #fff;
@@ -8,6 +17,8 @@
     min-height: 100%;
     min-width: 700px;
     clear: both;
+    font-family: sans-serif;
+    font-size: 0.8em;
 }
 
 .App-logo {

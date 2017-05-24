@@ -27,6 +27,7 @@ class Network extends React.Component {
     handleChange(e) {
         const node = e.data.node;
         console.log(node);
+
         if (node.selected) {
             node.selected = false;
         } else {
@@ -46,7 +47,7 @@ class Network extends React.Component {
 
     onGraphLoaded(data) {
         data.nodes.forEach(node => {
-            node.articles_s = node.articles.join(", ");
+            node.articles_s = node.articles ? node.articles.join(", ") : "";
             node.title = node.title === "" ? node.ecli : node.title;
             let ecli_split = node.ecli.split(":");
             node.label = ecli_split[2] + ' ' + ecli_split[3];
@@ -78,7 +79,7 @@ class Network extends React.Component {
                     <SigmaNetwork renderer="canvas" style={{maxWidth:"inherit", height:"700px"}}
                                     graph={data}
                                     settings={{minNodeSize:3, minArrowSize:4, defaultEdgeColor:'#000'}}
-                                    onClickNode={this.handleChange} 
+                                    onClickNode={this.handleChange}
                                     updateFilterProps={this.updateFilterProps}
                                     filterState={this.props.filterState}
                                     loading={false}

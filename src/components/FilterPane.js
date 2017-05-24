@@ -12,6 +12,7 @@ class FilterPane extends Component {
         this.handleInDegreeChange = this.handleInDegreeChange.bind(this);
         this.handleSubjectChange = this.handleSubjectChange.bind(this);
         this.handleCreatorChange = this.handleCreatorChange.bind(this);
+        this.handleCommunityChange = this.handleCommunityChange.bind(this);
         this.handleMinYearChange = this.handleMinYearChange.bind(this);
         this.handleMaxYearChange = this.handleMaxYearChange.bind(this);
         this.handleSizeAttributeChange = this.handleSizeAttributeChange.bind(this);
@@ -62,6 +63,13 @@ class FilterPane extends Component {
         this.props.onChange(newState);
     }
 
+    handleCommunityChange(event) {
+        const newState = {
+            communityValue: event.target.value
+        };
+        this.props.onChange(newState);
+    }
+
     handleSizeAttributeChange(event) {
         const newState = {
             sizeAttributeValue: event.target.value
@@ -101,6 +109,7 @@ class FilterPane extends Component {
             const maxYear = graphProps.maxYear || 2016;
             const subjectCategories = graphProps.subjectCategories || {};
             const creatorCategories = graphProps.creatorCategories || {};
+            const communityCategories = graphProps.communityCategories || {};
             const listSubjectOptions = Object.keys(subjectCategories).map(
                 (option) => <option value={option} key={option}> {subjectCategories[option]} </option>
             );
@@ -109,10 +118,11 @@ class FilterPane extends Component {
                 (option) => <option value={option} key={option}> {creatorCategories[option]} </option>
             );
             const sizeAttributes = graphProps.sizeAttributes || [];
+            const colorAttributes = graphProps.colorAttributes || [];
             const listSizeAttributes = sizeAttributes.map(
                 (option) => <option value={option} key={option}> {option} </option>
             );
-            const listColorAttributes = sizeAttributes.map(
+            const listColorAttributes = colorAttributes.map(
                 (option) => <option value={option} key={option}> {option} </option>
             );
 
@@ -120,12 +130,28 @@ class FilterPane extends Component {
             const inDegreeValue = this.props.filterState.inDegreeValue || minInDegree;
             const subjectValue = this.props.filterState.subjectValue;
             const creatorValue = this.props.filterState.creatorValue;
+            const communityValue = this.props.filterState.communityValue;
             const minYearValue = this.props.filterState.minYearValue || minYear;
             const maxYearValue = this.props.filterState.maxYearValue || maxYear;
             const sizeAttributeValue = this.props.filterState.sizeAttributeValue;
             const colorAttributeValue = this.props.filterState.colorAttributeValue;
             const adjustLayout = this.props.filterState.adjustLayout;
             const filterSelected = this.props.filterState.filterSelected; //|| false;
+
+            let communityFilter = null;
+            if (Object.keys(communityCategories).length > 0) {
+                const listCommunityOptions = Object.keys(communityCategories).map(
+                    (option) => <option value={option} key={option}> {communityCategories[option]} </option>
+                );
+                communityFilter = <div>
+                    <h4>Community</h4>
+                          <select value={communityValue} onChange={this.handleCommunityChange}>
+                            <option value="all">All</option>
+                            {listCommunityOptions}
+                          </select>
+                    </div>
+            }
+
             return (
                 <div>
                     <h2>Filters</h2>
@@ -161,6 +187,7 @@ class FilterPane extends Component {
                             {listCreatorOptions}
                           </select>
                         </div>
+                        {communityFilter}
                         <div>
                             <h4>Selection </h4>
                             <label> Filter selected:

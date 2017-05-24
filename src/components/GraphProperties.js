@@ -11,6 +11,7 @@ class GraphProperties extends React.Component {
     constructor(props: Props) {
         super(props);
         this.getGraphProperties = this.getGraphProperties.bind(this);
+        this.getcolorAttributes = this.getcolorAttributes.bind(this);
     }
 
 
@@ -27,6 +28,7 @@ class GraphProperties extends React.Component {
             maxYear = 0;
         const subjectCategories = {};
         const creatorCategories = {};
+        const communityCategories = {};
         s.graph.nodes().forEach(node => {
             const inDegree = s.graph.degree(node.id, "in");
             maxInDegree = Math.max(maxInDegree, inDegree);
@@ -40,6 +42,9 @@ class GraphProperties extends React.Component {
             subjectCategories[node.subject] = subj_split[subj_split.length - 1];
             const creator_split = node.creator.split("/");
             creatorCategories[node.creator] = creator_split[creator_split.length - 1];
+            if (node.community) {
+                communityCategories[node.community] = node.community;
+            }
         });
         return {
             minInDegree: 0,
@@ -48,12 +53,28 @@ class GraphProperties extends React.Component {
             maxYear: maxYear,
             subjectCategories: subjectCategories,
             creatorCategories: creatorCategories,
-            sizeAttributes: this.getSizeAttributes()
+            communityCategories: communityCategories,
+            sizeAttributes: this.getSizeAttributes(),
+            colorAttributes: this.getcolorAttributes()
         };
     }
 
     getSizeAttributes() {
         const attributes = ['degree', 'in_degree', 'out_degree', 'year', 'hubs', 'authorities', 'betweenness_centrality', 'closeness_centrality', 'count_annotation', 'rel_in_degree', 'pagerank'];
+        // Check if first node contains these attributes
+        const s = this.props.sigma;
+        let exampleNode = [];
+        if (s.graph.nodes().length > 0) {
+            exampleNode = s.graph.nodes()[0];
+        }
+        const filteredAttributes = attributes.filter(att => {
+            return (att in exampleNode);
+        });
+        return filteredAttributes;
+    }
+
+    getcolorAttributes() {
+        const attributes = ['creator', 'subject', 'community', 'degree', 'in_degree', 'out_degree', 'year', 'hubs', 'authorities', 'betweenness_centrality', 'closeness_centrality', 'count_annotation', 'rel_in_degree', 'pagerank'];
         // Check if first node contains these attributes
         const s = this.props.sigma;
         let exampleNode = [];
