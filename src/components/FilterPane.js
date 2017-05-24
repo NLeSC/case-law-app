@@ -204,6 +204,7 @@ class FilterPane extends Component {
                         <div>
                           <h4>Node Color</h4>
                           <select value={colorAttributeValue} onChange={this.handleColorAttributeChange}>
+                            <option value="none">none</option>
                             {listColorAttributes}
                           </select>
                         </div>
