@@ -33,7 +33,7 @@ class ColorOnAttribute extends React.Component {
         if (att === 'none') {
             nodes.forEach(node => {
                 node.color_selected = 'green';
-                node.color_unselected = 'black';
+                node.color_unselected = 'dimgray';
                 if (node.selected) {
                     node.color = node.color_selected;
                 } else {
