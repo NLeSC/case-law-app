@@ -47,10 +47,10 @@ class Network extends React.Component {
 
     onGraphLoaded(data) {
         data.nodes.forEach(node => {
-            node.articles_s = node.articles ? node.articles.join(", ") : "";
             node.title = node.title === "" ? node.ecli : node.title;
             let ecli_split = node.ecli.split(":");
             node.label = ecli_split[2] + ' ' + ecli_split[3];
+            node.abstract = node.abstract ? node.abstract.replace("\n", "") : "";
 
             // layout attributes
             node.x = node.x || Math.random();

@@ -18,10 +18,11 @@ class AttributesPane extends React.Component {
             title,
             id,
             date,
-            articles_s,
+            articles,
             community,
             abstract
         } = this.props.activeNode;
+        const articles_s = articles ? articles.join(", ") : "";
         if (this.props.activeNode.id) {
             return (
                 <div>
