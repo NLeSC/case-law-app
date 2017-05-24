@@ -69,7 +69,7 @@ class GraphProperties extends React.Component {
     }
 
     getcolorAttributes() {
-        const attributes = ['creator', 'subject', 'degree', 'in_degree', 'out_degree', 'year', 'hubs', 'authorities', 'betweenness_centrality', 'closeness_centrality', 'count_annotation', 'rel_in_degree', 'pagerank'];
+        const attributes = ['creator', 'subject', 'community', 'degree', 'in_degree', 'out_degree', 'year', 'hubs', 'authorities', 'betweenness_centrality', 'closeness_centrality', 'count_annotation', 'rel_in_degree', 'pagerank'];
         // Check if first node contains these attributes
         const s = this.props.sigma;
         let exampleNode = [];

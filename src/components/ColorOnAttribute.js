@@ -54,6 +54,12 @@ class ColorOnAttribute extends React.Component {
         // Don't use 2 most extreme values
         const scale = (nshades - 4) / (maxValue - minValue)
         const cm_unselected = colormap({
+            colormap: 'greys', // pick a builtin colormap or add your own 
+            nshades: nshades, // how many divisions 
+            format: 'hex', // "hex" or "rgb" or "rgbaString" 
+            alpha: 1 // set an alpha value or a linear alpha mapping [start, end] 
+        });
+        const cm_selected = colormap({
             colormap: 'greens', // pick a builtin colormap or add your own 
             nshades: nshades, // how many divisions 
             format: 'hex', // "hex" or "rgb" or "rgbaString" 
@@ -61,7 +67,7 @@ class ColorOnAttribute extends React.Component {
         });
         nodes.forEach(node => {
             const index = 2 + (node[att] - minValue) * scale;
-            node.color_selected = 'black';
+            node.color_selected = cm_selected[Math.floor(index)];
             node.color_unselected = cm_unselected[Math.floor(index)];
             if (node.selected) {
                 node.color = node.color_selected;
@@ -84,15 +90,22 @@ class ColorOnAttribute extends React.Component {
         const nshades = Math.max(11, values.length);
         const scale = nshades / values.length;
         const cm_unselected = colormap({
-            colormap: 'earth', // pick a builtin colormap or add your own 
+            colormap: 'jet', // pick a builtin colormap or add your own 
             nshades: nshades, // how many divisions 
-            format: 'hex', // "hex" or "rgb" or "rgbaString" 
+            format: 'rgbaString', // "hex" or "rgb" or "rgbaString" 
+            alpha: 0.5 // set an alpha value or a linear alpha mapping [start, end] 
+        });
+
+        const cm_selected = colormap({
+            colormap: 'jet', // pick a builtin colormap or add your own 
+            nshades: nshades, // how many divisions 
+            format: 'rgbaString', // "hex" or "rgb" or "rgbaString" 
             alpha: 1 // set an alpha value or a linear alpha mapping [start, end] 
         });
 
         nodes.forEach(node => {
             const index = Math.floor(scale * values.indexOf(node[att]));
-            node.color_selected = 'black';
+            node.color_selected = cm_selected[index]; //'black';
             node.color_unselected = cm_unselected[index];
             if (node.selected) {
                 node.color = node.color_selected;

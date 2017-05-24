@@ -14,9 +14,11 @@ import EmptyComponent from './utils.js';
 class SigmaNetwork extends Sigma {
 
     constructor(props) {
+
         super(props);
         this.getVisibleNodes = this.getVisibleNodes.bind(this);
     }
+
 
     getVisibleNodes() {
         console.log("Retrieving visible nodes");
@@ -31,6 +33,8 @@ class SigmaNetwork extends Sigma {
         }
         return visibleNodes;
     }
+
+
 
 
     componentDidMount() {
@@ -88,6 +92,8 @@ class SigmaNetwork extends Sigma {
                 nodesByCreator(creator)(node) &&
                 nodesBySelected(filterSelected)(node);
         };
+
+
 
         const {
             inDegreeValue,
