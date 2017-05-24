@@ -28,7 +28,7 @@ class App extends React.Component {
             activeNode: {},
             filterState: {
                 sizeAttributeValue: "degree",
-                colorAttributeValue: "community",
+                colorAttributeValue: "none",
                 adjustLayout: false,
                 filterSelected: false
             },
@@ -91,7 +91,7 @@ class App extends React.Component {
             filterState.creatorValue = filterState.creatorValue || "all";
             filterState.communityValue = filterState.communityValue || "all";
             filterState.sizeAttributeValue = filterState.sizeAttributeValue || "degree";
-            filterState.colorAttributeValue = filterState.colorAttributeValue || "creator";
+            filterState.colorAttributeValue = filterState.colorAttributeValue || "none";
             return {
                 filterState: filterState
             };
@@ -144,7 +144,7 @@ class App extends React.Component {
         } = this.state;
         const title = data.title || "Network";
         const version = require('./../package.json').version;
-        const version_url = "https://github.com/NLeSC/case-law-app/releases/tag/v" + version;
+        const version_url = "https://github.com/NLeSC/case-law-app/releases";
         return (
             <div className="App">
                 <div className="App-header">
@@ -152,8 +152,8 @@ class App extends React.Component {
                       <h3>Case Law Analytics - {title}</h3>
                     </div>
                     <div className="App-info">
-                      <p><a href={version_url}>Version {version}</a></p>
-                     <p> <a href="https://github.com/NLeSC/case-law-app">Source code</a> </p>
+                      <p><a href={version_url} target="_blank">Version {version}</a></p>
+                     <p> <a href="https://github.com/NLeSC/case-law-app" target="_blank">Source code</a> </p>
                     </div>
                 </div>
             

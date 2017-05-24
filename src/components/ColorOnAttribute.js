@@ -30,7 +30,17 @@ class ColorOnAttribute extends React.Component {
         const s = props.sigma;
         const att = props.attribute;
         const nodes = s.graph.nodes();
-        if (nodes.length > 0) {
+        if (att === 'none') {
+            nodes.forEach(node => {
+                node.color_selected = 'green';
+                node.color_unselected = 'black';
+                if (node.selected) {
+                    node.color = node.color_selected;
+                } else {
+                    node.color = node.color_unselected;
+                }
+            });
+        } else if (nodes.length > 0) {
             if (typeof nodes[0][att] === 'string') {
                 this.updateColorCategorical(nodes, att);
             } else {
