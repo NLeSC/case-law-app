@@ -74,6 +74,16 @@ class SigmaNetwork extends Sigma {
             };
         };
 
+        const nodesByCommunity = community => {
+            return node => {
+                if (community === "all") {
+                    return true;
+                } else {
+                    return node.community === community;
+                }
+            };
+        };
+
         const nodesBySelected = filterSelected => {
             return node => {
                 if (filterSelected) {
@@ -85,11 +95,12 @@ class SigmaNetwork extends Sigma {
         };
 
 
-        const nodesBy = (indegree, subject, creator, minYearValue, maxYearValue, filterSelected) => {
+        const nodesBy = (indegree, subject, creator, community, minYearValue, maxYearValue, filterSelected) => {
             return node => nodesByIndegree(indegree)(node) &&
                 nodesByYear(minYearValue, maxYearValue)(node) &&
                 nodesBySubject(subject)(node) &&
                 nodesByCreator(creator)(node) &&
+                nodesByCommunity(community)(node) &&
                 nodesBySelected(filterSelected)(node);
         };
 
@@ -99,6 +110,7 @@ class SigmaNetwork extends Sigma {
             inDegreeValue,
             subjectValue,
             creatorValue,
+            communityValue,
             minYearValue,
             maxYearValue,
             sizeAttributeValue,
@@ -128,7 +140,7 @@ class SigmaNetwork extends Sigma {
                     <GraphProperties onInitialization={this.props.updateFilterProps} sigma={this.sigma}>
                         <SizeOnAttribute attribute={sizeAttributeValue}>
                             <ColorOnAttribute attribute={colorAttributeValue}>
-                                    <Filter nodesBy={nodesBy(inDegreeValue, subjectValue, creatorValue, minYearValue, maxYearValue, filterSelected)}/>
+                                    <Filter nodesBy={nodesBy(inDegreeValue, subjectValue, creatorValue, communityValue, minYearValue, maxYearValue, filterSelected)}/>
                                     {forceLayout}
                             </ColorOnAttribute>
                         </SizeOnAttribute>

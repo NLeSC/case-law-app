@@ -19,6 +19,7 @@ class AttributesPane extends React.Component {
             id,
             date,
             articles_s,
+            community,
             abstract
         } = this.props.activeNode;
         if (this.props.activeNode.id) {
@@ -27,6 +28,7 @@ class AttributesPane extends React.Component {
                     <h4><a href={id} target="_blank">{title}</a> </h4>
                     <div> <b>Date: </b>{date} </div>
                     <div> <b>Articles: </b> {articles_s} </div>
+                    <div> <b>Community: </b> {community} </div>
                     <div> <b>Abstract: </b>{abstract}</div>
                 </div>
             );

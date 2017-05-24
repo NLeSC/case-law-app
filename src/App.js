@@ -28,7 +28,7 @@ class App extends React.Component {
             activeNode: {},
             filterState: {
                 sizeAttributeValue: "degree",
-                colorAttributeValue: "creator",
+                colorAttributeValue: "community",
                 adjustLayout: false,
                 filterSelected: false
             },
@@ -89,6 +89,7 @@ class App extends React.Component {
             filterState.inDegreeValue = filterState.inDegreeValue || 0;
             filterState.subjectValue = filterState.subjectValue || "all";
             filterState.creatorValue = filterState.creatorValue || "all";
+            filterState.communityValue = filterState.communityValue || "all";
             filterState.sizeAttributeValue = filterState.sizeAttributeValue || "degree";
             filterState.colorAttributeValue = filterState.colorAttributeValue || "creator";
             return {
