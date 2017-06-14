@@ -119,7 +119,7 @@ class SigmaNetwork extends Sigma {
         } = this.props.filterState;
         const nrNodes = this.props.graph.nodes.length;
         const nrEdges = this.props.graph.edges.length;
-        const iterationsPerRender = Math.max(Math.ceil(Math.log10(nrEdges)), 1);
+        const iterationsPerRender = Math.max(Math.ceil(Math.log(nrEdges) / Math.log(10)), 1);
         const timeout = Math.max(nrNodes * 25, 3000);
         let forceLayout = <EmptyComponent/>; //<span></span>;
         if (this.props.mountLayout) {
