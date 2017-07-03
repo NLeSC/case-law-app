@@ -4,6 +4,8 @@ import {
 } from 'react';
 import './FilterPane.css';
 import 'core-js/es6/weak-map';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 
 class FilterPane extends Component {
 
@@ -49,23 +51,23 @@ class FilterPane extends Component {
         this.props.onChange(newState);
     }
 
-    handleSubjectChange(event) {
+    handleSubjectChange(value) {
         const newState = {
-            subjectValue: event.target.value
+            subjectValue: value
         };
         this.props.onChange(newState);
     }
 
-    handleCreatorChange(event) {
+    handleCreatorChange(value) {
         const newState = {
-            creatorValue: event.target.value
+            creatorValue: value
         };
         this.props.onChange(newState);
     }
 
-    handleCommunityChange(event) {
+    handleCommunityChange(value) {
         const newState = {
-            communityValue: event.target.value
+            communityValue: value
         };
         this.props.onChange(newState);
     }
@@ -110,13 +112,17 @@ class FilterPane extends Component {
             const subjectCategories = graphProps.subjectCategories || {};
             const creatorCategories = graphProps.creatorCategories || {};
             const communityCategories = graphProps.communityCategories || {};
-            const listSubjectOptions = Object.keys(subjectCategories).map(
-                (option) => <option value={option} key={option}> {subjectCategories[option]} </option>
-            );
 
-            const listCreatorOptions = Object.keys(creatorCategories).map(
-                (option) => <option value={option} key={option}> {creatorCategories[option]} </option>
-            );
+            const subjectOptions = Object.keys(subjectCategories).map(
+                (option) => ({
+                    value: option,
+                    label: subjectCategories[option]
+                }));
+            const creatorOptions = Object.keys(creatorCategories).map(
+                (option) => ({
+                    value: option,
+                    label: creatorCategories[option]
+                }));
             const sizeAttributes = graphProps.sizeAttributes || [];
             const colorAttributes = graphProps.colorAttributes || [];
             const listSizeAttributes = sizeAttributes.map(
@@ -140,15 +146,22 @@ class FilterPane extends Component {
 
             let communityFilter = null;
             if (Object.keys(communityCategories).length > 0) {
-                const listCommunityOptions = Object.keys(communityCategories).map(
-                    (option) => <option value={option} key={option}> {communityCategories[option]} </option>
-                );
+                const communityOptions = Object.keys(communityCategories).map(
+                    (option) => ({
+                        value: option,
+                        label: communityCategories[option]
+                    }));
+
                 communityFilter = <div>
                     <h4>Community</h4>
-                          <select value={communityValue} onChange={this.handleCommunityChange}>
-                            <option value="all">All</option>
-                            {listCommunityOptions}
-                          </select>
+                          <Select
+                          name="community"
+                          value={communityValue}
+                          options={communityOptions}
+                          onChange={this.handleCommunityChange}
+                          multi
+                         placeholder="Select Community"
+                        />
                     </div>
             }
 
@@ -175,17 +188,25 @@ class FilterPane extends Component {
                         </div>
                         <div>
                           <h4>Rechtsgebied</h4>
-                          <select value={subjectValue} onChange={this.handleSubjectChange}>
-                            <option value="all">All subjects</option>
-                            {listSubjectOptions}
-                          </select>
+                        <Select
+                          name="subject"
+                          value={subjectValue}
+                          options={subjectOptions}
+                          onChange={this.handleSubjectChange}
+                          multi
+                         placeholder="Select Subject"
+                        />
                         </div>
                         <div>
                           <h4>Instantie</h4>
-                          <select value={creatorValue} onChange={this.handleCreatorChange}>
-                            <option value="all">All creators</option>
-                            {listCreatorOptions}
-                          </select>
+                        <Select
+                              name="creator"
+                              value={creatorValue}
+                              options={creatorOptions}
+                              onChange={this.handleCreatorChange}
+                              multi
+                             placeholder="Select Creator"
+                            />
                         </div>
                         {communityFilter}
                         <div>

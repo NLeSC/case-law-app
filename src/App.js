@@ -7,6 +7,7 @@ import FilterPane from './components/FilterPane';
 import LoadData from './components/LoadData';
 import DownloadData from './components/DownloadData';
 
+
 class App extends React.Component {
 
     constructor(props) {
@@ -87,9 +88,9 @@ class App extends React.Component {
             filterState.minYearValue = filterState.minYearValue || prevState.graphProps.minYear;
             filterState.maxYearValue = filterState.maxYearValue || prevState.graphProps.maxYear;
             filterState.inDegreeValue = filterState.inDegreeValue || 0;
-            filterState.subjectValue = filterState.subjectValue || "all";
-            filterState.creatorValue = filterState.creatorValue || "all";
-            filterState.communityValue = filterState.communityValue || "all";
+            filterState.subjectValue = filterState.subjectValue || [];
+            filterState.creatorValue = filterState.creatorValue || [];
+            filterState.communityValue = filterState.communityValue || [];
             filterState.sizeAttributeValue = filterState.sizeAttributeValue || "degree";
             filterState.colorAttributeValue = filterState.colorAttributeValue || "none";
             return {

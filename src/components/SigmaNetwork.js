@@ -55,31 +55,34 @@ class SigmaNetwork extends Sigma {
         };
 
         const nodesBySubject = subject => {
+            const subjects = subject.map(s => s.value);
             return node => {
-                if (subject === "all") {
+                if (subjects.length === 0) {
                     return true;
                 } else {
-                    return node.subject === subject;
+                    return subjects.includes(node.subject);
                 }
             };
         };
 
         const nodesByCreator = creator => {
+            const creators = creator.map(s => s.value);
             return node => {
-                if (creator === "all") {
+                if (creators.length === 0) {
                     return true;
                 } else {
-                    return node.creator === creator;
+                    return creators.includes(node.creator);
                 }
             };
         };
 
         const nodesByCommunity = community => {
+            const communities = community.map(s => s.value);
             return node => {
-                if (community === "all") {
+                if (communities.length === 0) {
                     return true;
                 } else {
-                    return node.community === community;
+                    return communities.includes(node.community);
                 }
             };
         };
