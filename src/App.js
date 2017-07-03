@@ -87,7 +87,7 @@ class App extends React.Component {
             const filterState = prevState.filterState;
             filterState.minYearValue = filterState.minYearValue || prevState.graphProps.minYear;
             filterState.maxYearValue = filterState.maxYearValue || prevState.graphProps.maxYear;
-            filterState.inDegreeValue = filterState.inDegreeValue || 0;
+            filterState.inDegreeValue = filterState.inDegreeValue || [prevState.graphProps.minInDegree, prevState.graphProps.maxInDegree];
             filterState.subjectValue = filterState.subjectValue || [];
             filterState.creatorValue = filterState.creatorValue || [];
             filterState.communityValue = filterState.communityValue || [];

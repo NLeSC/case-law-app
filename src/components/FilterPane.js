@@ -6,6 +6,10 @@ import './FilterPane.css';
 import 'core-js/es6/weak-map';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
+import Slider, {
+    Range
+} from 'rc-slider';
+import 'rc-slider/assets/index.css';
 
 class FilterPane extends Component {
 
@@ -15,31 +19,24 @@ class FilterPane extends Component {
         this.handleSubjectChange = this.handleSubjectChange.bind(this);
         this.handleCreatorChange = this.handleCreatorChange.bind(this);
         this.handleCommunityChange = this.handleCommunityChange.bind(this);
-        this.handleMinYearChange = this.handleMinYearChange.bind(this);
-        this.handleMaxYearChange = this.handleMaxYearChange.bind(this);
+        this.handleYearChange = this.handleYearChange.bind(this);
         this.handleSizeAttributeChange = this.handleSizeAttributeChange.bind(this);
         this.handleColorAttributeChange = this.handleColorAttributeChange.bind(this);
         this.handleAdjustLayoutChange = this.handleAdjustLayoutChange.bind(this);
         this.handleFilterSelectedChange = this.handleFilterSelectedChange.bind(this);
     }
 
-    handleInDegreeChange(event) {
+    handleInDegreeChange(range) {
         const newState = {
-            inDegreeValue: parseInt(event.target.value, 10)
+            inDegreeValue: range //parseInt(event.target.value, 10)
         };
         this.props.onChange(newState);
     }
 
-    handleMinYearChange(event) {
+    handleYearChange(range) {
         const newState = {
-            minYearValue: parseInt(event.target.value, 10)
-        };
-        this.props.onChange(newState);
-    }
-
-    handleMaxYearChange(event) {
-        const newState = {
-            maxYearValue: parseInt(event.target.value, 10)
+            minYearValue: range[0],
+            maxYearValue: range[1]
         };
         this.props.onChange(newState);
     }
@@ -133,7 +130,9 @@ class FilterPane extends Component {
             );
 
             // The current values
-            const inDegreeValue = this.props.filterState.inDegreeValue || minInDegree;
+            const inDegreeValue = this.props.filterState.inDegreeValue || [minInDegree, maxInDegree];
+            const minInDegreeValue = inDegreeValue[0];
+            const maxInDegreeValue = inDegreeValue[1];
             const subjectValue = this.props.filterState.subjectValue;
             const creatorValue = this.props.filterState.creatorValue;
             const communityValue = this.props.filterState.communityValue;
@@ -170,17 +169,13 @@ class FilterPane extends Component {
                     <h2>Filters</h2>
                     <form>
                         <div>
-                          <h4>Minimum in-degree: {inDegreeValue}</h4>
-                            {minInDegree} <input type="range" min={minInDegree} max={maxInDegree} value={inDegreeValue} onChange={this.handleInDegreeChange}/> {maxInDegree}
+                          <h4>In-degree: {minInDegreeValue} - {maxInDegreeValue}</h4>
+                         <Range min={minInDegree} max={maxInDegree} value={[minInDegreeValue, maxInDegreeValue]} onChange={this.handleInDegreeChange} />
                         </div>
                         <div>
-                          <h4>Minimum year: {minYearValue}</h4>
-                            {minYear} <input type="range" min={minYear} max={maxYear} value={minYearValue} onChange={this.handleMinYearChange}/> {maxYear}
+                          <h4>Year: {minYearValue} - {maxYearValue}</h4>
+                             <Range min={minYear} max={maxYear} value={[minYearValue, maxYearValue]} onChange={this.handleYearChange} />
                         </div>
-                        <div>
-                          <h4>Maximum year: {maxYearValue}</h4>
-                            {minYear} <input type="range" min={minYear} max={maxYear} value={maxYearValue} onChange={this.handleMaxYearChange}/> {maxYear}
-                        </div> 
                         <div>
                             <label> Adjust layout for year slider: 
                                 <input name="adjustLayout" type="checkbox" checked={adjustLayout} onChange={this.handleAdjustLayoutChange}/>

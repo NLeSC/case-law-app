@@ -43,7 +43,7 @@ class SigmaNetwork extends Sigma {
 
     render() {
         const nodesByIndegree = indegree => {
-            return node => "in_degree" in node ? (node.in_degree >= indegree) : true;
+            return node => "in_degree" in node && indegree ? (node.in_degree >= indegree[0]) && (node.in_degree <= indegree[1]) : true;
         };
         const nodesByYear = (minYearValue, maxYearValue) => {
             return node => {
