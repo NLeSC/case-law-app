@@ -30,6 +30,9 @@ class App extends React.Component {
             filterState: {
                 sizeAttributeValue: "degree",
                 colorAttributeValue: "none",
+                sliderAttributeValue: "year",
+                subjectValue: [],
+                creatorValue: [],
                 adjustLayout: false,
                 filterSelected: false
             },
@@ -71,6 +74,7 @@ class App extends React.Component {
             return {
                 filterState: mergedFilterState
             };
+
         });
     }
 
@@ -85,8 +89,9 @@ class App extends React.Component {
     setDefaultStateValues() {
         this.setState((prevState, props) => {
             const filterState = prevState.filterState;
-            filterState.minYearValue = filterState.minYearValue || prevState.graphProps.minYear;
-            filterState.maxYearValue = filterState.maxYearValue || prevState.graphProps.maxYear;
+            filterState.sliderAttributeValue = filterState.sizeAttributeValue || "year";
+            filterState.minSliderValue = filterState.minSliderValue || prevState.graphProps.sliderMinMaxValues[0];
+            filterState.maxSliderValue = filterState.maxSliderValue || prevState.graphProps.sliderMinMaxValues[1];
             filterState.inDegreeValue = filterState.inDegreeValue || [prevState.graphProps.minInDegree, prevState.graphProps.maxInDegree];
             filterState.subjectValue = filterState.subjectValue || [];
             filterState.creatorValue = filterState.creatorValue || [];

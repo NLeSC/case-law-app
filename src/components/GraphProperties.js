@@ -12,6 +12,7 @@ class GraphProperties extends React.Component {
         super(props);
         this.getGraphProperties = this.getGraphProperties.bind(this);
         this.getcolorAttributes = this.getcolorAttributes.bind(this);
+        this.getSliderAttributes = this.getSliderAttributes.bind(this);
     }
 
 
@@ -29,11 +30,20 @@ class GraphProperties extends React.Component {
         const subjectCategories = {};
         const creatorCategories = {};
         const communityCategories = {};
+        const sliderAttributes = this.getSliderAttributes();
+        let sliderMinMaxValues = {};
+        sliderAttributes.forEach(att => {
+            sliderMinMaxValues[att] = [Number.MAX_SAFE_INTEGER, 0]
+        })
+
         s.graph.nodes().forEach(node => {
             const inDegree = s.graph.degree(node.id, "in");
             maxInDegree = Math.max(maxInDegree, inDegree);
             minInDegree = Math.min(minInDegree, inDegree);
-
+            sliderAttributes.forEach(att => {
+                sliderMinMaxValues[att][0] = Math.min(sliderMinMaxValues[att][0], node[att]);
+                sliderMinMaxValues[att][1] = Math.max(sliderMinMaxValues[att][1], node[att]);
+            })
             const year = node.year;
 
             minYear = Math.min(minYear, year);
@@ -55,7 +65,8 @@ class GraphProperties extends React.Component {
             creatorCategories: creatorCategories,
             communityCategories: communityCategories,
             sizeAttributes: this.getSizeAttributes(),
-            colorAttributes: this.getcolorAttributes()
+            colorAttributes: this.getcolorAttributes(),
+            sliderMinMaxValues: sliderMinMaxValues
         };
     }
 
@@ -75,6 +86,21 @@ class GraphProperties extends React.Component {
 
     getcolorAttributes() {
         const attributes = ['creator', 'subject', 'community', 'degree', 'in_degree', 'out_degree', 'year', 'hubs', 'authorities', 'betweenness_centrality', 'closeness_centrality', 'count_annotation', 'rel_in_degree', 'pagerank'];
+        // Check if first node contains these attributes
+        const s = this.props.sigma;
+        let exampleNode = [];
+        if (s.graph.nodes().length > 0) {
+            exampleNode = s.graph.nodes()[0];
+        }
+        const filteredAttributes = attributes.filter(att => {
+            return (att in exampleNode);
+        });
+        return filteredAttributes;
+    }
+
+    getSliderAttributes() {
+        // TODO: include non-discrete attributes
+        const attributes = ['degree', 'out_degree', 'year', 'count_annotation'];
         // Check if first node contains these attributes
         const s = this.props.sigma;
         let exampleNode = [];

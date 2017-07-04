@@ -19,11 +19,12 @@ class FilterPane extends Component {
         this.handleSubjectChange = this.handleSubjectChange.bind(this);
         this.handleCreatorChange = this.handleCreatorChange.bind(this);
         this.handleCommunityChange = this.handleCommunityChange.bind(this);
-        this.handleYearChange = this.handleYearChange.bind(this);
+        this.handleSliderChange = this.handleSliderChange.bind(this);
         this.handleSizeAttributeChange = this.handleSizeAttributeChange.bind(this);
         this.handleColorAttributeChange = this.handleColorAttributeChange.bind(this);
         this.handleAdjustLayoutChange = this.handleAdjustLayoutChange.bind(this);
         this.handleFilterSelectedChange = this.handleFilterSelectedChange.bind(this);
+        this.handleSliderAttributeChange = this.handleSliderAttributeChange.bind(this);
     }
 
     handleInDegreeChange(range) {
@@ -33,10 +34,11 @@ class FilterPane extends Component {
         this.props.onChange(newState);
     }
 
-    handleYearChange(range) {
+    handleSliderChange(range) {
+        console.log(range);
         const newState = {
-            minYearValue: range[0],
-            maxYearValue: range[1]
+            minSliderValue: range[0],
+            maxSliderValue: range[1]
         };
         this.props.onChange(newState);
     }
@@ -65,6 +67,15 @@ class FilterPane extends Component {
     handleCommunityChange(value) {
         const newState = {
             communityValue: value
+        };
+        this.props.onChange(newState);
+    }
+
+    handleSliderAttributeChange(event) {
+        const newState = {
+            sliderAttributeValue: event.target.value,
+            minSliderValue: null,
+            maxSliderValue: null
         };
         this.props.onChange(newState);
     }
@@ -104,8 +115,6 @@ class FilterPane extends Component {
             const graphProps = this.props.graphProps;
             const minInDegree = graphProps.minInDegree || 0;
             const maxInDegree = graphProps.maxInDegree || 0;
-            const minYear = graphProps.minYear || 1950;
-            const maxYear = graphProps.maxYear || 2016;
             const subjectCategories = graphProps.subjectCategories || {};
             const creatorCategories = graphProps.creatorCategories || {};
             const communityCategories = graphProps.communityCategories || {};
@@ -128,21 +137,29 @@ class FilterPane extends Component {
             const listColorAttributes = colorAttributes.map(
                 (option) => <option value={option} key={option}> {option} </option>
             );
+            const sliderMinMaxValues = graphProps.sliderMinMaxValues || {};
+            const sliderAttributes = Object.keys(sliderMinMaxValues);
+            const listSliderAttributes = sliderAttributes.map(
+                (option) => <option value={option} key={option}> {option} </option>
+            );
 
             // The current values
+            // TODO: adjust indegree to slider prop 
             const inDegreeValue = this.props.filterState.inDegreeValue || [minInDegree, maxInDegree];
             const minInDegreeValue = inDegreeValue[0];
             const maxInDegreeValue = inDegreeValue[1];
             const subjectValue = this.props.filterState.subjectValue;
             const creatorValue = this.props.filterState.creatorValue;
             const communityValue = this.props.filterState.communityValue;
-            const minYearValue = this.props.filterState.minYearValue || minYear;
-            const maxYearValue = this.props.filterState.maxYearValue || maxYear;
             const sizeAttributeValue = this.props.filterState.sizeAttributeValue;
             const colorAttributeValue = this.props.filterState.colorAttributeValue;
             const adjustLayout = this.props.filterState.adjustLayout;
             const filterSelected = this.props.filterState.filterSelected; //|| false;
+            const sliderAttributeValue = this.props.filterState.sliderAttributeValue || 'year';
 
+            const slider_minmax = sliderMinMaxValues[sliderAttributeValue] || [0, 1];
+            const minSliderValue = this.props.filterState.minSliderValue || slider_minmax[0];
+            const maxSliderValue = this.props.filterState.maxSliderValue || slider_minmax[1];
             let communityFilter = null;
             if (Object.keys(communityCategories).length > 0) {
                 const communityOptions = Object.keys(communityCategories).map(
@@ -173,11 +190,13 @@ class FilterPane extends Component {
                          <Range min={minInDegree} max={maxInDegree} value={[minInDegreeValue, maxInDegreeValue]} onChange={this.handleInDegreeChange} />
                         </div>
                         <div>
-                          <h4>Year: {minYearValue} - {maxYearValue}</h4>
-                             <Range min={minYear} max={maxYear} value={[minYearValue, maxYearValue]} onChange={this.handleYearChange} />
+                          <h4><select value={sliderAttributeValue} onChange={this.handleSliderAttributeChange}>
+                            {listSliderAttributes}
+                          </select>: {minSliderValue} - {maxSliderValue}</h4>
+                             <Range min={slider_minmax[0]} max={slider_minmax[1]} value={[minSliderValue, maxSliderValue]} onChange={this.handleSliderChange} />
                         </div>
                         <div>
-                            <label> Adjust layout for year slider: 
+                            <label> Adjust layout for slider: 
                                 <input name="adjustLayout" type="checkbox" checked={adjustLayout} onChange={this.handleAdjustLayoutChange}/>
                             </label>
                         </div>

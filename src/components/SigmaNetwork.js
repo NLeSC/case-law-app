@@ -45,10 +45,13 @@ class SigmaNetwork extends Sigma {
         const nodesByIndegree = indegree => {
             return node => "in_degree" in node && indegree ? (node.in_degree >= indegree[0]) && (node.in_degree <= indegree[1]) : true;
         };
-        const nodesByYear = (minYearValue, maxYearValue) => {
+
+        const nodesBySliderValue = (att, minValue, maxValue) => {
             return node => {
-                if ("year" in node) {
-                    return (parseInt(node.year, 10) >= minYearValue && parseInt(node.year, 10) <= maxYearValue);
+                if (att in node) {
+                    let isLarger = minValue == null ? true : (parseInt(node[att], 10) >= minValue);
+                    let isSmaller = maxValue == null ? true : (parseInt(node[att], 10) <= maxValue);
+                    return isLarger && isSmaller;
                 }
                 return true;
             };
@@ -98,12 +101,12 @@ class SigmaNetwork extends Sigma {
         };
 
 
-        const nodesBy = (indegree, subject, creator, community, minYearValue, maxYearValue, filterSelected) => {
+        const nodesBy = (indegree, subject, creator, community, sliderAttributeValue, minSliderValue, maxSliderValue, filterSelected) => {
             return node => nodesByIndegree(indegree)(node) &&
-                nodesByYear(minYearValue, maxYearValue)(node) &&
+                nodesBySliderValue(sliderAttributeValue, minSliderValue, maxSliderValue)(node) &&
                 nodesBySubject(subject)(node) &&
-                nodesByCreator(creator)(node) &&
-                nodesByCommunity(community)(node) &&
+                //                nodesByCreator(creator)(node) &&
+                //                nodesByCommunity(community)(node) &&
                 nodesBySelected(filterSelected)(node);
         };
 
@@ -114,8 +117,9 @@ class SigmaNetwork extends Sigma {
             subjectValue,
             creatorValue,
             communityValue,
-            minYearValue,
-            maxYearValue,
+            sliderAttributeValue,
+            minSliderValue,
+            maxSliderValue,
             sizeAttributeValue,
             colorAttributeValue,
             filterSelected
@@ -143,7 +147,7 @@ class SigmaNetwork extends Sigma {
                     <GraphProperties onInitialization={this.props.updateFilterProps} sigma={this.sigma}>
                         <SizeOnAttribute attribute={sizeAttributeValue}>
                             <ColorOnAttribute attribute={colorAttributeValue}>
-                                    <Filter nodesBy={nodesBy(inDegreeValue, subjectValue, creatorValue, communityValue, minYearValue, maxYearValue, filterSelected)}/>
+                                    <Filter nodesBy={nodesBy(inDegreeValue, subjectValue, creatorValue, communityValue, sliderAttributeValue, minSliderValue, maxSliderValue, filterSelected)}/>
                                     {forceLayout}
                             </ColorOnAttribute>
                         </SizeOnAttribute>
