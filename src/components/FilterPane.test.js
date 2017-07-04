@@ -35,11 +35,7 @@ it('should render component', () => {
 
 
 it('should trigger props.onChange', () => {
-    const event = {
-        target: {
-            value: "1"
-        }
-    }
+    const value = [0, 1];
     const onChange = jest.fn();
     const filterState = {};
     const graphProps = {};
@@ -49,9 +45,9 @@ it('should trigger props.onChange', () => {
         graphProps
     });
 
-    filterPane.handleInDegreeChange(event);
+    filterPane.handleInDegreeChange(value);
 
     expect(onChange).toBeCalledWith({
-        inDegreeValue: 1
+        inDegreeValue: [0, 1]
     });
 });
