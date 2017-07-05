@@ -21,7 +21,6 @@ class SigmaNetwork extends Sigma {
 
 
     getVisibleNodes() {
-        console.log("Retrieving visible nodes");
         const visibleNodes = [];
         if (this.props.graph.nodes) {
             this.props.graph.nodes.forEach(node => {
@@ -34,11 +33,10 @@ class SigmaNetwork extends Sigma {
         return visibleNodes;
     }
 
-
-
-
-    componentDidMount() {
-        this.props.setVisibleNodeFunction(this.getVisibleNodes);
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.filterState !== this.props.filterState) {
+            this.props.setVisibleNodes(this.getVisibleNodes());
+        }
     }
 
     render() {

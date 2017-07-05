@@ -20,8 +20,9 @@ class App extends React.Component {
         this.doneLoading = this.doneLoading.bind(this);
         this.doneRemounting = this.doneRemounting.bind(this);
         this.resetFilterValues.bind(this);
-        this.setVisibleNodeFunction = this.setVisibleNodeFunction.bind(this);
         this.getDefaultFilterValues = this.getDefaultFilterValues.bind(this);
+        this.getNrVisibleNodes = this.getNrVisibleNodes.bind(this);
+        this.setVisibleNodes = this.setVisibleNodes.bind(this);
         const data = require('./data/data.json');
         this.state = {
             data: data,
@@ -30,7 +31,7 @@ class App extends React.Component {
             activeNode: {},
             filterState: this.getDefaultFilterValues(),
             graphProps: {},
-            visibleNodeFunction: () => []
+            visibleNodes: []
         };
     }
 
@@ -141,11 +142,17 @@ class App extends React.Component {
         });
     }
 
-    setVisibleNodeFunction(visibleNodeFunction) {
-        console.log("Setting visible nodes function");
+
+    getNrVisibleNodes() {
+        const nrNodes = this.state.data.nodes.length;
+        const nrVisibleNodes = this.state.visibleNodes.length;
+        return [nrNodes, nrVisibleNodes];
+    }
+
+    setVisibleNodes(visibleNodes) {
         this.setState({
-            visibleNodeFunction: visibleNodeFunction
-        });
+            visibleNodes: visibleNodes
+        })
     }
 
     render() {
@@ -156,7 +163,7 @@ class App extends React.Component {
             data,
             loading,
             mountLayout,
-            visibleNodeFunction
+            visibleNodes
         } = this.state;
         const title = data.title || "Network";
         const version = require('./../package.json').version;
@@ -178,9 +185,9 @@ class App extends React.Component {
                         <LoadData
                           onClick={this.handleLoadData}
                         />
-                    <DownloadData data={visibleNodeFunction}/>
+                    <DownloadData data={visibleNodes}/>
                     </div>
-                
+                    Showing {visibleNodes.length} / {data.nodes.length} nodes
                     <FilterPane onChange={this.handleFilterChange}
                                 filterState={filterState}
                                 graphProps={graphProps} />
@@ -193,6 +200,7 @@ class App extends React.Component {
                             mountLayout={mountLayout}
                             data={data}
                             setVisibleNodeFunction={this.setVisibleNodeFunction}
+                            setVisibleNodes={this.setVisibleNodes}
                             />
                 </div>
                 <div className="App-attribute-pane">

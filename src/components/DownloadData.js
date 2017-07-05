@@ -32,7 +32,7 @@ class DownloadData extends React.Component {
     }
 
     onDownload() {
-        const data = this.props.data();
+        const data = this.props.data;
         const csvContent = this.dataToCSV(data);
         const fileName = "nodes.csv";
         let blob = new Blob([csvContent], {
