@@ -51,6 +51,7 @@ class Network extends React.Component {
             let ecli_split = node.ecli.split(":");
             node.label = ecli_split[2] + ' ' + ecli_split[3];
             node.abstract = node.abstract ? node.abstract.replace("\n", "") : "";
+            node.year = node.year ? node.year : ecli_split[3];
 
             // layout attributes
             node.x = node.x || Math.random();

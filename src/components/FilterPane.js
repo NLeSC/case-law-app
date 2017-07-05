@@ -35,7 +35,6 @@ class FilterPane extends Component {
     }
 
     handleSliderChange(range) {
-        console.log(range);
         const newState = {
             minSliderValue: range[0],
             maxSliderValue: range[1]
@@ -104,7 +103,8 @@ class FilterPane extends Component {
     componentIsMounted() {
         //Set the default values
         const newState = {
-            minYearValue: this.props.graphProps.minYear
+            minSliderValue: null,
+            maxSliderValue: null
         };
         this.props.onChange(newState);
     }
@@ -155,7 +155,7 @@ class FilterPane extends Component {
             const colorAttributeValue = this.props.filterState.colorAttributeValue;
             const adjustLayout = this.props.filterState.adjustLayout;
             const filterSelected = this.props.filterState.filterSelected; //|| false;
-            const sliderAttributeValue = this.props.filterState.sliderAttributeValue || 'year';
+            const sliderAttributeValue = this.props.filterState.sliderAttributeValue; // || 'year';
 
             const slider_minmax = sliderMinMaxValues[sliderAttributeValue] || [0, 1];
             const minSliderValue = this.props.filterState.minSliderValue || slider_minmax[0];

@@ -105,8 +105,8 @@ class SigmaNetwork extends Sigma {
             return node => nodesByIndegree(indegree)(node) &&
                 nodesBySliderValue(sliderAttributeValue, minSliderValue, maxSliderValue)(node) &&
                 nodesBySubject(subject)(node) &&
-                //                nodesByCreator(creator)(node) &&
-                //                nodesByCommunity(community)(node) &&
+                nodesByCreator(creator)(node) &&
+                nodesByCommunity(community)(node) &&
                 nodesBySelected(filterSelected)(node);
         };
 

@@ -24,16 +24,14 @@ class GraphProperties extends React.Component {
     getGraphProperties() {
         const s = this.props.sigma;
         let minInDegree = Number.MAX_SAFE_INTEGER,
-            maxInDegree = 0,
-            minYear = Number.MAX_SAFE_INTEGER,
-            maxYear = 0;
+            maxInDegree = 0;
         const subjectCategories = {};
         const creatorCategories = {};
         const communityCategories = {};
         const sliderAttributes = this.getSliderAttributes();
         let sliderMinMaxValues = {};
         sliderAttributes.forEach(att => {
-            sliderMinMaxValues[att] = [Number.MAX_SAFE_INTEGER, 0]
+            sliderMinMaxValues[att] = [Number.MAX_SAFE_INTEGER, Number.MIN_SAFE_INTEGER]
         })
 
         s.graph.nodes().forEach(node => {
@@ -44,10 +42,6 @@ class GraphProperties extends React.Component {
                 sliderMinMaxValues[att][0] = Math.min(sliderMinMaxValues[att][0], node[att]);
                 sliderMinMaxValues[att][1] = Math.max(sliderMinMaxValues[att][1], node[att]);
             })
-            const year = node.year;
-
-            minYear = Math.min(minYear, year);
-            maxYear = Math.max(maxYear, year);
             const subj_split = node.subject.split("#");
             subjectCategories[node.subject] = subj_split[subj_split.length - 1];
             const creator_split = node.creator.split("/");
@@ -59,8 +53,6 @@ class GraphProperties extends React.Component {
         return {
             minInDegree: 0,
             maxInDegree: maxInDegree,
-            minYear: minYear,
-            maxYear: maxYear,
             subjectCategories: subjectCategories,
             creatorCategories: creatorCategories,
             communityCategories: communityCategories,

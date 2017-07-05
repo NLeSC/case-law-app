@@ -21,21 +21,14 @@ class App extends React.Component {
         this.doneRemounting = this.doneRemounting.bind(this);
         this.resetFilterValues.bind(this);
         this.setVisibleNodeFunction = this.setVisibleNodeFunction.bind(this);
+        this.getDefaultFilterValues = this.getDefaultFilterValues.bind(this);
         const data = require('./data/data.json');
         this.state = {
             data: data,
             loading: false,
             mountLayout: true,
             activeNode: {},
-            filterState: {
-                sizeAttributeValue: "degree",
-                colorAttributeValue: "none",
-                sliderAttributeValue: "year",
-                subjectValue: [],
-                creatorValue: [],
-                adjustLayout: false,
-                filterSelected: false
-            },
+            filterState: this.getDefaultFilterValues(),
             graphProps: {},
             visibleNodeFunction: () => []
         };
@@ -49,7 +42,7 @@ class App extends React.Component {
 
     handleFilterChange(newFilterState) {
         // If the layout needs to be adjust, unmount the layout
-        if (newFilterState.minYearValue || newFilterState.maxYearValue) {
+        if (newFilterState.minSliderValue || newFilterState.maxSliderValue) {
             if (this.state.filterState.adjustLayout) {
                 this.setState({
                     "mountLayout": false
@@ -87,26 +80,43 @@ class App extends React.Component {
     }
 
     setDefaultStateValues() {
+        const defaultValues = this.getDefaultFilterValues();
         this.setState((prevState, props) => {
             const filterState = prevState.filterState;
-            filterState.sliderAttributeValue = filterState.sizeAttributeValue || "year";
-            filterState.minSliderValue = filterState.minSliderValue || prevState.graphProps.sliderMinMaxValues[0];
-            filterState.maxSliderValue = filterState.maxSliderValue || prevState.graphProps.sliderMinMaxValues[1];
+            filterState.sliderAttributeValue = filterState.sliderAttributeValue || defaultValues.sizeAttributeValue;
+            filterState.minSliderValue = filterState.minSliderValue || defaultValues.minSliderValue;
+            filterState.maxSliderValue = filterState.maxSliderValue || defaultValues.maxSliderValue;
             filterState.inDegreeValue = filterState.inDegreeValue || [prevState.graphProps.minInDegree, prevState.graphProps.maxInDegree];
-            filterState.subjectValue = filterState.subjectValue || [];
-            filterState.creatorValue = filterState.creatorValue || [];
-            filterState.communityValue = filterState.communityValue || [];
-            filterState.sizeAttributeValue = filterState.sizeAttributeValue || "degree";
-            filterState.colorAttributeValue = filterState.colorAttributeValue || "none";
+            filterState.subjectValue = filterState.subjectValue || defaultValues.subjectValue;
+            filterState.creatorValue = filterState.creatorValue || defaultValues.creatorValue;
+            filterState.communityValue = filterState.communityValue || defaultValues.communityValue;
+            filterState.sizeAttributeValue = filterState.sizeAttributeValue || defaultValues.sizeAttributeValue;
+            filterState.colorAttributeValue = filterState.colorAttributeValue || defaultValues.colorAttributeValue;
             return {
                 filterState: filterState
             };
         });
     }
 
+    getDefaultFilterValues() {
+        const filterState = {
+            sizeAttributeValue: "degree",
+            colorAttributeValue: "none",
+            sliderAttributeValue: "year",
+            subjectValue: [],
+            creatorValue: [],
+            communityValue: [],
+            adjustLayout: false,
+            filterSelected: false,
+            minSliderValue: null,
+            maxSliderValue: null
+        };
+        return filterState;
+
+    }
     resetFilterValues() {
         this.setState({
-            filterState: {}
+            filterState: this.getDefaultFilterValues()
         });
     }
 
