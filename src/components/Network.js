@@ -15,10 +15,10 @@ class Network extends React.Component {
         if (this.props.data !== prevProps.data) {
             this.props.doneLoading();
         }
-        if (this.props.filterState.minYearValue !== prevProps.filterState.minYearValue) {
+        if (this.props.filterState.minSliderValue !== prevProps.filterState.minSliderValue) {
             this.props.doneRemounting();
         }
-        if (this.props.filterState.maxYearValue !== prevProps.filterState.maxYearValue) {
+        if (this.props.filterState.maxSliderValue !== prevProps.filterState.maxSliderValue) {
             this.props.doneRemounting();
         }
     }
