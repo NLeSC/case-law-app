@@ -39,6 +39,10 @@ class SigmaNetwork extends Sigma {
         }
     }
 
+    componentDidMount() {
+        this.props.setVisibleNodes(this.getVisibleNodes());
+    }
+
     render() {
         const nodesByIndegree = indegree => {
             return node => "in_degree" in node && indegree ? (node.in_degree >= indegree[0]) && (node.in_degree <= indegree[1]) : true;
