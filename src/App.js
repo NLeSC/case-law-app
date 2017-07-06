@@ -101,8 +101,8 @@ class App extends React.Component {
 
     getDefaultFilterValues() {
         const filterState = {
-            sizeAttributeValue: "degree",
-            colorAttributeValue: "none",
+            sizeAttributeValue: "in_degree",
+            colorAttributeValue: "community",
             sliderAttributeValue: "year",
             subjectValue: [],
             creatorValue: [],
