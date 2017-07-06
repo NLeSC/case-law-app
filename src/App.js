@@ -23,6 +23,7 @@ class App extends React.Component {
         this.getDefaultFilterValues = this.getDefaultFilterValues.bind(this);
         this.getNrVisibleNodes = this.getNrVisibleNodes.bind(this);
         this.setVisibleNodes = this.setVisibleNodes.bind(this);
+        this.deactivate = this.deactivate.bind(this);
         const data = require('./data/data.json');
         this.state = {
             data: data,
@@ -155,6 +156,12 @@ class App extends React.Component {
         })
     }
 
+    deactivate() {
+        this.setState({
+            activeNode: {}
+        });
+    }
+
     render() {
         const {
             activeNode,
@@ -168,6 +175,7 @@ class App extends React.Component {
         const title = data.title || "Network";
         const version = require('./../package.json').version;
         const version_url = "https://github.com/NLeSC/case-law-app/releases";
+
         return (
             <div className="App">
                 <div className="App-header">
@@ -204,7 +212,7 @@ class App extends React.Component {
                             />
                 </div>
                 <div className="App-attribute-pane">
-                    <AttributesPane activeNode={activeNode}/>
+                    <AttributesPane activeNode={activeNode} deactivate={this.deactivate}/>
                 </div>
             </div>
         );
