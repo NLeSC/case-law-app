@@ -1,6 +1,6 @@
 {
     "name": "case-law-app-js",
-    "version": "0.3.1",
+    "version": "0.4.0",
     "private": true,
     "homepage": "https://nlesc.github.io/case-law-app",
     "devDependencies": {
