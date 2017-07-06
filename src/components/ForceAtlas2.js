@@ -97,6 +97,12 @@ class ForceAtlas2 extends React.Component {
         if (this.state.timer) clearTimeout(this.state.timer)
     }
 
+        componentWillReceiveProps(nextProps) {
+        if (nextProps.rerun && !this.props.rerun) {
+            this._refreshGraph();
+        }
+    }
+
     //TODO: Add composition of child components after timeout
         render() {
         if (!this.state.running) {

@@ -130,7 +130,7 @@ class SigmaNetwork extends Sigma {
         if (this.props.mountLayout) {
             forceLayout = <ForceAtlas2 
                                 iterationsPerRender={iterationsPerRender}  timeout={timeout}   gravity={1.5}                
-                                scalingRatio={1.3}  >    
+                                scalingRatio={1.3} rerun={false} >    
                             <NOverlap 
                                 nodeMargin={1.0} duration={1000} speed={5} maxIterations={50} gridSize={20} easing="quadraticInOut"
                                 />
