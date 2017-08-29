@@ -55,6 +55,7 @@ This should be the structure of the JSON file (containing one example node):
       "pagerank": 0.0038386703423328333,
       "hubs": 4.528120703550719e-97,
       "authorities": 0.0,
+      "community": "1",
       "x": 0.4335141987424399,
       "y": 0.8291632847446144,
     },
@@ -99,6 +100,7 @@ Documentation of the node attributes:
   * **pagerank**
   * **hubs**
   * **authorities**
+  * **community**: Louvain community
 * Other attributes:
   * **x** (_optional_): Initial x-position of the node in the visualizaion (to ensure consistent layout)
   * **y** (_optional_): Initial y-position of the node in the visualization (to ensure consistent layout)
