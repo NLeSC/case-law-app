@@ -24,6 +24,7 @@ class FilterPane extends Component {
         this.handleColorAttributeChange = this.handleColorAttributeChange.bind(this);
         this.handleAdjustLayoutChange = this.handleAdjustLayoutChange.bind(this);
         this.handleFilterSelectedChange = this.handleFilterSelectedChange.bind(this);
+        this.handleClearSelection = this.handleClearSelection.bind(this);
         this.handleSliderAttributeChange = this.handleSliderAttributeChange.bind(this);
     }
 
@@ -98,6 +99,14 @@ class FilterPane extends Component {
             filterSelected: event.target.checked
         };
         this.props.onChange(newState);
+    }
+
+    handleClearSelection() {
+        const newState = {
+            filterSelected: false
+        };
+        this.props.onChange(newState);
+        this.props.clearSelection();
     }
 
     componentIsMounted() {
@@ -228,6 +237,11 @@ class FilterPane extends Component {
                             <label> Filter selected:
                                 <input name="filterSelected" type="checkbox" checked={filterSelected} onChange={this.handleFilterSelectedChange}/>
                             </label>
+                            <div>
+                        <button type="button" onClick={this.handleClearSelection}>
+                                Clear selection
+                          </button>
+                        </div>
                         </div>
                         <h2> Appearances </h2>
                         <div>

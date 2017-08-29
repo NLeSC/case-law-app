@@ -13,6 +13,7 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.handleActiveNodeChange = this.handleActiveNodeChange.bind(this);
+        this.clearSelection = this.clearSelection.bind(this);
         this.handleFilterChange = this.handleFilterChange.bind(this);
         this.setFilterValues = this.setFilterValues.bind(this);
         this.setDefaultStateValues = this.setDefaultStateValues.bind(this);
@@ -40,6 +41,10 @@ class App extends React.Component {
         this.setState({
             activeNode
         });
+    }
+
+    clearSelection() {
+        console.log('Clear selection');
     }
 
     handleFilterChange(newFilterState) {
@@ -198,7 +203,8 @@ class App extends React.Component {
                     Showing {visibleNodes.length} / {data.nodes.length} nodes
                     <FilterPane onChange={this.handleFilterChange}
                                 filterState={filterState}
-                                graphProps={graphProps} />
+                                graphProps={graphProps} 
+                                clearSelection={this.clearSelection}/>
             
                  </div>   
                 <div className="App-network">
