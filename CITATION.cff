@@ -1,15 +1,18 @@
 # YAML 1.2
 # Metadata for citation of this software according to the CFF format (https://citation-file-format.github.io/)
-cff-version: 1.0.3
-message: If you use this software, please cite it as below.
-title: case-law-app
-doi: 10.5281/zenodo.823668
+---
 authors:
-- given-names: Dafne
-  name-particle: van
-  family-names: Kuppevelt
-  affiliation: Netherlands eScience Center
-version: 0.4.0
+  -
+    affiliation: "Netherlands eScience Center"
+    family-names: Kuppevelt
+    given-names: Dafne
+    name-particle: van
+cff-version: "1.0.3"
 date-released: 2017-07-06
-repository-code: https://github.com/NLeSC/case-law-app
+doi: 10.5281/zenodo.823668
 license: Apache-2.0
+message: "If you use this software, please cite it as below."
+repository-code: "https://github.com/NLeSC/case-law-app"
+title: case-law-app
+version: "0.4.0"
+
