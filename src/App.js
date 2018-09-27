@@ -37,8 +37,13 @@ class App extends React.Component {
     }
 
     handleActiveNodeChange(activeNode) {
-        this.setState({
-            activeNode
+        this.setState((prevState, props) => {
+            const filterState = prevState.filterState;
+            filterState["activeNode"] = activeNode;
+            return {
+                filterState,
+                activeNode
+            }
         });
     }
 

@@ -26,12 +26,6 @@ class Network extends React.Component {
     handleChange(e) {
         const node = e.data.node;
         console.log(node);
-
-        if (node.selected) {
-            node.selected = false;
-        } else {
-            node.selected = true;
-        }
         this.props.onChange(node);
     }
 

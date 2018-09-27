@@ -32,7 +32,23 @@ class SigmaNetwork extends Sigma {
         }
         return visibleNodes;
     }
+    
+    selectActiveNode(props){
+        const activeNode = this.props.filterState.activeNode;
+        this.props.graph.nodes.forEach(node => {
+            let sigmaNode = this.sigma.graph.nodes(node.id)
+            sigmaNode.selected = false;
+            if(activeNode && activeNode.id === sigmaNode.id) {
+                sigmaNode.selected = true;
+            }
+        });
 
+    }
+
+    componentWillReceiveProps(props: Props) {
+        this.selectActiveNode(props);
+    }
+    
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.filterState !== this.props.filterState) {
             this.props.setVisibleNodes(this.getVisibleNodes());
@@ -124,7 +140,8 @@ class SigmaNetwork extends Sigma {
             maxSliderValue,
             sizeAttributeValue,
             colorAttributeValue,
-            filterSelected
+            filterSelected,
+            activeNode
         } = this.props.filterState;
         const nrNodes = this.props.graph.nodes.length;
         const nrEdges = this.props.graph.edges.length;
