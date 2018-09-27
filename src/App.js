@@ -46,6 +46,17 @@ class App extends React.Component {
             }
         });
     }
+    
+    deactivate() {
+        this.setState((prevState, props) => {
+            const filterState = prevState.filterState;
+            filterState["activeNode"] = {};
+            return {
+                filterState,
+                activeNode: {}
+            }
+        })
+    }
 
     handleFilterChange(newFilterState) {
         // If the layout needs to be adjust, unmount the layout
@@ -161,11 +172,7 @@ class App extends React.Component {
         })
     }
 
-    deactivate() {
-        this.setState({
-            activeNode: {}
-        });
-    }
+
 
     render() {
         const {
