@@ -6,12 +6,14 @@ import AttributesPane from './components/AttributesPane';
 import FilterPane from './components/FilterPane';
 import LoadData from './components/LoadData';
 import DownloadData from './components/DownloadData';
-
-
+import FABButton from 'react-mdl/lib/FABButton';
+import Icon from './components/Icons';
+import Modal from './components/Modal';
 class App extends React.Component {
 
     constructor(props) {
         super(props);
+        this.handleUpload = this.handleUpload.bind(this);
         this.handleActiveNodeChange = this.handleActiveNodeChange.bind(this);
         this.handleFilterChange = this.handleFilterChange.bind(this);
         this.setFilterValues = this.setFilterValues.bind(this);
@@ -26,6 +28,7 @@ class App extends React.Component {
         this.deactivate = this.deactivate.bind(this);
         const data = require('./data/data.json');
         this.state = {
+            showModal: false,
             data: data,
             loading: false,
             mountLayout: true,
@@ -34,6 +37,10 @@ class App extends React.Component {
             graphProps: {},
             visibleNodes: []
         };
+    }
+    handleUpload() {
+        this.setState({showModal:!this.state.showModal})
+        
     }
 
     handleActiveNodeChange(activeNode) {
@@ -123,7 +130,6 @@ class App extends React.Component {
     }
 
     handleLoadData(data) {
-        console.log("Load new data");
         this.resetFilterValues();
         this.setState({
             data: data,
@@ -170,7 +176,8 @@ class App extends React.Component {
             data,
             loading,
             mountLayout,
-            visibleNodes
+            visibleNodes,
+            showModal
         } = this.state;
         const title = data.title || "Network";
         const version = require('./../package.json').version;
@@ -178,24 +185,37 @@ class App extends React.Component {
 
         return (
             <div className="App">
+            <Modal show= {showModal} >
+                    <LoadData
+                          onClick={this.handleLoadData}
+                        />
+            </Modal>
                 <div className="App-header">
-                    <div className="App-title">
-                      <h3>Case Law Analytics - {title}</h3>
+                <div className="App-title">
+                        <p>Case Law Analytics</p>
+                </div>
+                    <div className="App-buttonsContainer">
+
+                        <FABButton colored mini onClick={this.handleUpload}>
+                            <Icon  icon="upload" />
+                        </FABButton>
+                        <DownloadData data={visibleNodes}/>
                     </div>
-                    <div className="App-info">
-                      <p><a href={version_url} target="_blank">Version {version}</a></p>
-                     <p> <a href="https://github.com/NLeSC/case-law-app" target="_blank">Source code</a> </p>
-                    </div>
+                    
                 </div>
             
                 <div className="App-filter-pane">
-                    <div className="App-form">
+                <div className="App-caseTitle">
+                     {title}
+                    </div>
+                    {/* <div className="App-form">
                         <LoadData
                           onClick={this.handleLoadData}
                         />
                     <DownloadData data={visibleNodes}/>
                     </div>
-                    Showing {visibleNodes.length} / {data.nodes.length} nodes
+                    Showing {visibleNodes.length} / {data.nodes.length} nodes */}
+
                     <FilterPane onChange={this.handleFilterChange}
                                 filterState={filterState}
                                 graphProps={graphProps} />
@@ -210,10 +230,17 @@ class App extends React.Component {
                             setVisibleNodeFunction={this.setVisibleNodeFunction}
                             setVisibleNodes={this.setVisibleNodes}
                             />
-                </div>
-                <div className="App-attribute-pane">
+                            <div className="App-attribute-pane">
                     <AttributesPane activeNode={activeNode} deactivate={this.deactivate}/>
                 </div>
+                </div>
+                <div className="App-footer">
+                    <div className="App-info">
+                      <p><a href={version_url} target="_blank">Version {version}</a></p>
+                     <p> <a href="https://github.com/NLeSC/case-law-app" target="_blank">Source code</a> </p>
+                    </div> 
+                </div>
+                
             </div>
         );
     }

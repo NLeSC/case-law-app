@@ -3,3 +3,12 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+a {
+  color: black !important;
+  word-break: break-all;
+}
+
+a :hover {
+  color: #00BCD4 !important;
+  cursor: pointer;
+}

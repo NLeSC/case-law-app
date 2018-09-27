@@ -168,8 +168,8 @@ class FilterPane extends Component {
                         label: communityCategories[option]
                     }));
 
-                communityFilter = <div>
-                    <h4>Community</h4>
+                communityFilter = <li className="App-filterItem">
+                    <h3>Community</h3>
                           <Select
                           name="community"
                           value={communityValue}
@@ -178,30 +178,29 @@ class FilterPane extends Component {
                           multi
                          placeholder="Select Community"
                         />
-                    </div>
+                    </li>
             }
 
             return (
-                <div>
-                    <h2>Filters</h2>
+                <div className="App-filterContent">
                     <form>
-                        <div>
-                          <h4>In-degree: {minInDegreeValue} - {maxInDegreeValue}</h4>
+                        <li className="App-filterItem">
+                          <h3>In-degree: {minInDegreeValue} - {maxInDegreeValue}</h3>
                          <Range min={minInDegree} max={maxInDegree} value={[minInDegreeValue, maxInDegreeValue]} onChange={this.handleInDegreeChange} />
-                        </div>
-                        <div>
-                          <h4><select value={sliderAttributeValue} onChange={this.handleSliderAttributeChange}>
+                        </li>
+                        <li className="App-filterItem">
+                          <h3><select value={sliderAttributeValue} onChange={this.handleSliderAttributeChange}>
                             {listSliderAttributes}
-                          </select>: {minSliderValue} - {maxSliderValue}</h4>
+                          </select>: {minSliderValue} - {maxSliderValue}</h3>
                              <Range min={slider_minmax[0]} max={slider_minmax[1]} value={[minSliderValue, maxSliderValue]} onChange={this.handleSliderChange} />
-                        </div>
-                        <div>
-                            <label> Adjust layout for slider: 
+                        </li>
+                        <li className="App-filterItem">
+                            <h3> Adjust layout for slider: 
                                 <input name="adjustLayout" type="checkbox" checked={adjustLayout} onChange={this.handleAdjustLayoutChange}/>
-                            </label>
-                        </div>
-                        <div>
-                          <h4>Rechtsgebied</h4>
+                                </h3>
+                        </li>
+                        <li className="App-filterItem">
+                          <h3>Rechtsgebied</h3>
                         <Select
                           name="subject"
                           value={subjectValue}
@@ -210,9 +209,9 @@ class FilterPane extends Component {
                           multi
                          placeholder="Select Subject"
                         />
-                        </div>
-                        <div>
-                          <h4>Instantie</h4>
+                        </li>
+                        <li className="App-filterItem">
+                          <h3>Instantie</h3>
                         <Select
                               name="creator"
                               value={creatorValue}
@@ -221,28 +220,28 @@ class FilterPane extends Component {
                               multi
                              placeholder="Select Creator"
                             />
-                        </div>
+                        </li>
                         {communityFilter}
-                        <div>
-                            <h4>Selection </h4>
-                            <label> Filter selected:
+                        <li className="App-filterItem">
+                           
+                            <h3> Filter selected:
                                 <input name="filterSelected" type="checkbox" checked={filterSelected} onChange={this.handleFilterSelectedChange}/>
-                            </label>
-                        </div>
-                        <h2> Appearances </h2>
-                        <div>
-                          <h4>Node Size</h4>
+                            </h3>
+                        </li>
+                       
+                        <li className="App-filterItem">
+                          <h3>Node Size</h3>
                           <select value={sizeAttributeValue} onChange={this.handleSizeAttributeChange}>
                             {listSizeAttributes}
                           </select>
-                        </div>
-                        <div>
-                          <h4>Node Color</h4>
+                        </li>
+                        <li className="App-filterItem">
+                          <h3>Node Color</h3>
                           <select value={colorAttributeValue} onChange={this.handleColorAttributeChange}>
                             <option value="none">none</option>
                             {listColorAttributes}
                           </select>
-                        </div>
+                        </li>
                     </form>
                 </div>
             );
