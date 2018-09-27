@@ -42,10 +42,18 @@ class GraphProperties extends React.Component {
                 sliderMinMaxValues[att][0] = Math.min(sliderMinMaxValues[att][0], node[att]);
                 sliderMinMaxValues[att][1] = Math.max(sliderMinMaxValues[att][1], node[att]);
             })
+            
             const subj_split = node.subject.split("#");
             subjectCategories[node.subject] = subj_split[subj_split.length - 1];
+            if(subjectCategories[node.subject].length===0){
+                subjectCategories[node.subject] = "<unknown>"
+            }
+            
             const creator_split = node.creator.split("/");
             creatorCategories[node.creator] = creator_split[creator_split.length - 1];
+            if(creatorCategories[node.creator].length===0){
+                creatorCategories[node.creator] = "<unknown>"
+            }
             if (node.community) {
                 communityCategories[node.community] = node.community;
             }
