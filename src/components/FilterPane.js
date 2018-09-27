@@ -196,12 +196,7 @@ class FilterPane extends Component {
                              <Range min={slider_minmax[0]} max={slider_minmax[1]} value={[minSliderValue, maxSliderValue]} onChange={this.handleSliderChange} />
                         </div>
                         <div>
-                            <label> Adjust layout for slider: 
-                                <input name="adjustLayout" type="checkbox" checked={adjustLayout} onChange={this.handleAdjustLayoutChange}/>
-                            </label>
-                        </div>
-                        <div>
-                          <h4>Rechtsgebied</h4>
+                          <h4>Subject</h4>
                         <Select
                           name="subject"
                           value={subjectValue}
@@ -212,7 +207,7 @@ class FilterPane extends Component {
                         />
                         </div>
                         <div>
-                          <h4>Instantie</h4>
+                          <h4>Creator</h4>
                         <Select
                               name="creator"
                               value={creatorValue}
