@@ -208,15 +208,7 @@ class App extends React.Component {
                 <div className="App-caseTitle">
                      {title}
                     </div>
-                    {/* <div className="App-form">
-                        <LoadData
-                          onClick={this.handleLoadData}
-                        />
-                    <DownloadData data={visibleNodes}/>
-                    </div>
-                    Showing {visibleNodes.length} / {data.nodes.length} nodes */}
-
-                    <FilterPane onChange={this.handleFilterChange}
+                   <FilterPane onChange={this.handleFilterChange}
                                 filterState={filterState}
                                 graphProps={graphProps} />
             

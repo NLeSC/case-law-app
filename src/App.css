@@ -5,7 +5,6 @@
 }
 .Modal {
     position: fixed;
-    z-index: 500;
     background-color: white;
     border: 1px solid #ccc;
     box-shadow: 1px 1px 1px black;
@@ -13,7 +12,7 @@
     right: 0;
     top: 60px;
     box-sizing: border-box;
-    transition: all 0.1s ease-out;
+    transition: all 0.8s ease-out;
 }
 .App-header {
     display: flex;
