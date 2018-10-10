@@ -2,3 +2,25 @@
   margin-bottom: 5rem;
     width: 60%;
 }
+.App-filterContent {
+  padding: 15px 0;
+  box-sizing: border-box;
+  color: #a1a1a1;
+}
+.App-filterItem {
+  padding: 10px;
+  box-sizing: border-box;
+  box-shadow: 0 10px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+}
+.App-filterItem :hover {
+  color: #85DFEA;
+  cursor: pointer;
+}
+.App-filterItem h3 {
+  font-size: 1.2em;
+  font-weight: 400;
+  margin: 0;
+}
+li {
+  list-style: none;
+}

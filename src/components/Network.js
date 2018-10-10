@@ -73,7 +73,7 @@ class Network extends React.Component {
             const data = this.onGraphLoaded(this.props.data);
             return (
                 <div className="Network">
-                    <SigmaNetwork renderer="canvas" style={{maxWidth:"inherit", height:"700px"}}
+                    <SigmaNetwork renderer="canvas" style={{maxWidth:"inherit", height:"80vh"}}
                                     graph={data}
                                     settings={{minNodeSize:3, minArrowSize:4, defaultEdgeColor:'#000'}}
                                     onClickNode={this.handleChange}

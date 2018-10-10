@@ -16,6 +16,7 @@
         "rc-slider": "^8.1.5",
         "react": "15.4.2",
         "react-dom": "15.4.2",
+        "react-mdl": "^1.11.0",
         "react-select": "^1.0.0-rc.5",
         "react-sigma": "=1.2.17",
         "react-simple-file-input": "1.0.0"

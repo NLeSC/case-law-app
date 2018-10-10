@@ -1,6 +1,7 @@
 import React from 'react';
 import Papa from 'babyparse';
-
+import FABButton from 'react-mdl/lib/FABButton';
+import Icon from './Icons';
 class DownloadData extends React.Component {
 
     constructor(props) {
@@ -45,9 +46,14 @@ class DownloadData extends React.Component {
     render() {
         /*<button type="button" onClick={this.onClick}>Load new data</button>*/
         return (
-            <button onClick={this.onDownload}>
-              Download filtered nodes
-              </button>
+            // <button onClick={this.onDownload}>
+            //   Download filtered nodes
+            //   </button>
+            
+                <FABButton colored mini onClick={this.onDownload}>
+                    <Icon  icon="download" />
+                </FABButton>
+           
         );
     }
 }
