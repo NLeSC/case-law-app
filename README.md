@@ -21,6 +21,10 @@ To run the application:
 
 `npm start`
 
+To deploy the application to gh-pages (using [gh-pages](https://www.npmjs.com/package/gh-pages)):
+
+`npm run deploy`
+
 
 ## Data format
 It is possible to upload a json file with a network to the visualization. This json file can be created with the [caselawnet Python application](https://github.com/NLeSC/CaseLawAnalytics). 
