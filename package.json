@@ -22,6 +22,7 @@
         "react-simple-file-input": "1.0.0"
     },
     "scripts": {
+        "prestart": "react-scripts build",
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test --env=jsdom",
