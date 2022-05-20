@@ -106,7 +106,7 @@ Documentation of the node attributes:
   * **authorities**
   * **community**: Louvain community
 * Other attributes:
-  * **x** (_optional_): Initial x-position of the node in the visualizaion (to ensure consistent layout)
+  * **x** (_optional_): Initial x-position of the node in the visualization (to ensure consistent layout)
   * **y** (_optional_): Initial y-position of the node in the visualization (to ensure consistent layout)
   
  Documentation of the link attributes:
